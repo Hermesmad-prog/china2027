@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>China 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f19;--card:rgba(23,32,54,.6);--bd:rgba(255,255,255,.08);
+  --cyan:#00f2fe;--blue:#4facfe;--purple:#7f00ff;--green:#00e676;--red:#ff4757;
+  --txt:#f0f4f8;--mut:#94a3b8;--nh:64px;--char-red:#e8445a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:'Inter','Noto Sans SC',sans-serif;min-height:100vh;}
+header{background:rgba(11,15,25,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);
+  position:sticky;top:0;z-index:50;padding:.85rem 1.4rem;display:flex;align-items:center;gap:.5rem;}
+.logo{font-weight:700;font-size:1.1rem;background:linear-gradient(45deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.vtag{font-size:.68rem;background:rgba(0,242,254,.1);border:1px solid rgba(0,242,254,.2);
+  padding:2px 7px;border-radius:10px;color:var(--cyan);}
+main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
+  padding-bottom:calc(var(--nh) + 1.6rem + env(safe-area-inset-bottom,0px));}
+.page{display:none;}.page.active{display:block;}
+.glass{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--bd);
+  border-radius:16px;padding:1.4rem;margin-bottom:1.2rem;}
+.empty{text-align:center;padding:3.5rem 1.5rem;}
+.empty-icon{font-size:3rem;margin-bottom:1rem;display:block;}
+.empty h3{font-size:1.1rem;font-weight:700;margin-bottom:.45rem;}
+.empty p{color:var(--mut);font-size:.88rem;line-height:1.55;}
+/* DÍAS */
+.trip-route{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem;}
+.cc{background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.18);border-radius:99px;
+  padding:5px 14px;font-size:.85rem;font-weight:600;color:var(--cyan);}
+.ra{color:var(--mut);font-size:.85rem;}
+.day-seg{margin-bottom:1rem;}
+.day-seg-lbl{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.4rem;}
+.day-row{display:flex;align-items:center;gap:.6rem;padding:.5rem .6rem;border-radius:10px;
+  background:rgba(255,255,255,.03);border:1px solid var(--bd);margin-bottom:.3rem;}
+.dnb{font-size:.72rem;font-weight:700;color:var(--cyan);background:rgba(0,242,254,.1);
+  border-radius:6px;padding:2px 7px;flex-shrink:0;}
+.drt{font-size:.88rem;color:var(--mut);}
+.dph{text-align:center;padding:2.5rem 1.5rem;}
+.dph-num{font-size:5rem;font-weight:700;opacity:.1;line-height:1;margin-bottom:.3rem;}
+.dph h3{font-size:1.1rem;font-weight:700;margin-bottom:.3rem;}
+.ctag{display:inline-block;font-size:.78rem;font-weight:600;color:var(--cyan);
+  background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.18);
+  padding:3px 12px;border-radius:99px;margin:.5rem 0 .7rem;}
+.dph p{color:var(--mut);font-size:.85rem;}
+.wip{display:inline-flex;align-items:center;gap:5px;margin-top:.8rem;font-size:.75rem;
+  color:var(--mut);background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:99px;padding:3px 12px;}
+/* CAMBIO */
+.rate-card{text-align:center;}
+.rate-big{font-size:1.5rem;font-weight:700;margin:.4rem 0 .2rem;}
+.rate-num{background:linear-gradient(45deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rate-meta{font-size:.75rem;color:var(--mut);}
+.conv-block{display:flex;flex-direction:column;gap:.8rem;}
+.conv-lbl{font-size:.8rem;font-weight:700;color:var(--mut);}
+.conv-inp{background:rgba(255,255,255,.06);border:1px solid var(--bd);border-radius:10px;
+  color:#fff;font-size:1.2rem;font-weight:600;padding:.65rem 1rem;
+  font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;width:100%;}
+.conv-inp:focus{border-color:var(--cyan);}
+.conv-res{background:rgba(0,242,254,.05);border:1px solid rgba(0,242,254,.15);border-radius:10px;
+  padding:.65rem 1rem;font-size:1.2rem;font-weight:700;color:var(--cyan);min-height:3rem;}
+.tog{background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.2);color:var(--cyan);
+  border-radius:99px;padding:.5rem 1.2rem;cursor:pointer;font-size:.85rem;font-weight:600;
+  align-self:center;transition:all .2s;}
+.tog:hover{background:rgba(0,242,254,.15);}
+.ref-tbl{width:100%;border-collapse:collapse;}
+.ref-tbl th{font-size:.78rem;font-weight:700;color:var(--mut);padding:.4rem .6rem;
+  text-align:left;border-bottom:1px solid var(--bd);}
+.ref-tbl td{padding:.42rem .6rem;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.ref-tbl tr:last-child td{border-bottom:none;}
+.rf{color:var(--txt);font-weight:600;}.ra2{color:var(--mut);font-size:.8rem;}.rt{color:var(--cyan);}
+/* WEATHER */
+.wx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;}
+.wx-card{background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:12px;padding:1.1rem;text-align:center;}
+.wx-zh{font-family:'Noto Sans SC',sans-serif;font-size:1.4rem;margin-bottom:2px;}
+.wx-es{font-size:.78rem;color:var(--mut);margin-bottom:.8rem;}
+.wx-ico{font-size:2rem;margin-bottom:.4rem;display:block;}
+.wx-lbl{font-size:.78rem;color:var(--mut);}
+/* FRASES */
+.cat-lbl{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:.6rem;}
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.7rem;margin-bottom:1.4rem;}
+.ph-card{background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:12px;
+  padding:.9rem;text-align:center;transition:border-color .2s;}
+.ph-card:hover{border-color:rgba(79,172,254,.25);}
+.ph-es{font-size:.75rem;color:var(--mut);margin-bottom:3px;}
+.ph-zh{font-size:1.6rem;font-family:'Noto Sans SC',sans-serif;color:#fff;margin:4px 0;line-height:1.2;}
+.ph-py{font-size:.78rem;color:var(--blue);}
+
+/* ══════════════════════════════
+   RADICALES — DISEÑO RICO
+══════════════════════════════ */
+.rsel{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:1rem;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.rsel::-webkit-scrollbar{display:none;}
+.rsb{flex-shrink:0;width:46px;height:46px;background:rgba(255,255,255,.05);
+  border:1px solid var(--bd);border-radius:10px;cursor:pointer;
+  font-family:'Noto Sans SC',sans-serif;font-size:1.35rem;color:var(--mut);
+  transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.rsb:hover{border-color:rgba(232,68,90,.4);color:var(--char-red);}
+.rsb.active{border-color:var(--char-red);background:rgba(232,68,90,.12);color:var(--char-red);}
+/* Header */
+.rad-hdr{display:flex;gap:1rem;align-items:flex-start;}
+.rhd-l{flex-shrink:0;background:rgba(0,0,0,.38);border-radius:12px;
+  padding:1rem 1.2rem;min-width:80px;text-align:center;align-self:stretch;
+  display:flex;align-items:center;justify-content:center;}
+.rhd-char{font-family:'Noto Sans SC',sans-serif;font-size:2rem;
+  color:var(--char-red);white-space:nowrap;line-height:1;}
+.rhd-r{flex:1;min-width:0;}
+.rhd-title{font-size:1.05rem;font-weight:700;color:var(--txt);margin-bottom:.25rem;}
+.rhd-sem{font-size:.86rem;color:var(--cyan);margin-bottom:.6rem;}
+.rhd-pic{display:flex;align-items:flex-start;gap:.35rem;background:rgba(255,200,0,.05);
+  border-left:3px solid rgba(255,200,0,.55);padding:.4rem .65rem;
+  border-radius:0 6px 6px 0;font-size:.81rem;color:var(--txt);line-height:1.45;}
+/* Derived characters grid */
+.dchar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;}
+.dcard{background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:12px;
+  padding:1rem .9rem;text-align:center;transition:border-color .2s,background .2s;}
+.dcard:hover{border-color:rgba(232,68,90,.35);background:rgba(232,68,90,.04);}
+.dc-ch{font-family:'Noto Sans SC',sans-serif;font-size:2.6rem;color:var(--char-red);
+  line-height:1;margin-bottom:.3rem;}
+.dc-py{font-size:.85rem;font-weight:600;color:var(--blue);margin-bottom:.1rem;}
+.dc-es{font-size:.78rem;color:var(--mut);margin-bottom:.65rem;}
+.dc-audio{display:flex;align-items:center;justify-content:center;gap:4px;width:100%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  padding:5px 8px;color:var(--mut);cursor:pointer;font-size:.78rem;transition:all .2s;
+  font-family:'Inter',sans-serif;}
+.dc-audio:hover{border-color:var(--blue);color:var(--blue);background:rgba(79,172,254,.08);}
+
+/* QUIZ */
+.qprog{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:.9rem 1.3rem;margin-bottom:1rem;}
+.qprow{display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem;}
+.qctr{font-size:.8rem;color:var(--mut);}.qsc{font-size:.8rem;font-weight:700;color:var(--green);}
+.pt{height:4px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
+.pf{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.qcard{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:2rem 1.5rem;text-align:center;}
+.qlbl{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);
+  background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.2);padding:3px 12px;border-radius:99px;margin-bottom:1.2rem;}
+.qchar{font-size:6.5rem;font-family:'Noto Sans SC',sans-serif;line-height:1;display:block;margin-bottom:.1rem;}
+@keyframes pop{from{transform:scale(.55);opacity:0;}to{transform:scale(1);opacity:1;}}
+.pop{animation:pop .32s cubic-bezier(.34,1.56,.64,1);}
+.qpy{font-size:1.05rem;font-weight:600;color:var(--blue);margin-bottom:1.8rem;}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:430px;margin:0 auto;}
+.opt{background:rgba(255,255,255,.04);border:1.5px solid var(--bd);color:#fff;padding:.8rem .9rem;
+  border-radius:12px;cursor:pointer;font-size:.88rem;font-family:'Inter','Noto Sans SC',sans-serif;
+  transition:border-color .13s,background .13s,transform .1s;}
+.opt:hover:not(:disabled){border-color:var(--blue);background:rgba(79,172,254,.1);transform:translateY(-2px);}
+.opt.ok{border-color:var(--green)!important;background:rgba(0,230,118,.17)!important;color:var(--green)!important;font-weight:700;}
+.opt.no{border-color:var(--red)!important;background:rgba(255,71,87,.14)!important;color:var(--red)!important;}
+.opt:disabled{cursor:not-allowed;}
+.qfb{margin-top:1.1rem;font-size:.86rem;font-weight:600;min-height:1.3rem;}
+.fbok{color:var(--green);}.fbno{color:var(--red);}
+.qend{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:2.8rem 2rem;text-align:center;animation:uf .4s ease;}
+@keyframes uf{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.estars{font-size:2.5rem;letter-spacing:.06em;margin-bottom:.75rem;}
+.eh{font-size:1.25rem;font-weight:700;margin-bottom:.45rem;}
+.enum{font-size:4.5rem;font-weight:700;line-height:1;background:linear-gradient(45deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.eof{color:var(--mut);font-size:.8rem;margin-top:.2rem;}
+.emsg{color:var(--mut);margin:.9rem 0 1.6rem;font-size:.9rem;}
+.retry{background:linear-gradient(135deg,var(--blue),var(--purple));border:none;color:#fff;
+  padding:.7rem 2rem;border-radius:12px;cursor:pointer;font-size:.9rem;font-weight:600;
+  transition:opacity .2s,transform .1s;}
+.retry:hover{opacity:.84;transform:translateY(-1px);}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;height:var(--nh);
+  background:rgba(9,13,22,.97);backdrop-filter:blur(18px);border-top:1px solid var(--bd);
+  display:flex;padding-bottom:env(safe-area-inset-bottom,0px);overflow:hidden;}
+.nav-panel{display:none;width:100%;height:100%;align-items:stretch;}
+.nav-panel.active{display:flex;}
+.nitem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;background:none;border:none;cursor:pointer;color:var(--mut);
+  transition:color .2s;position:relative;padding:.3rem .2rem;}
+.nitem::after{content:'';position:absolute;top:0;left:25%;right:25%;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:0 0 3px 3px;
+  transform:scaleX(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.nitem.active{color:var(--cyan);}.nitem.active::after{transform:scaleX(1);}
+.nico{font-size:1.25rem;line-height:1;}
+.nlbl{font-size:.6rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
+.subnav-wrapper{display:flex;width:100%;height:100%;align-items:center;}
+.nav-back{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;padding:0 .9rem;height:100%;background:none;border:none;border-right:1px solid var(--bd);
+  color:var(--mut);cursor:pointer;transition:color .2s;min-width:50px;}
+.nav-back:hover{color:var(--txt);}
+.ba{font-size:1.2rem;line-height:1;}.bt{font-size:.55rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.nscroll{display:flex;align-items:center;gap:7px;overflow-x:auto;padding:0 10px;flex:1;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;height:100%;}
+.nscroll::-webkit-scrollbar{display:none;}
+.nsb{flex-shrink:0;background:rgba(255,255,255,.05);border:1px solid var(--bd);
+  color:var(--mut);padding:7px 15px;border-radius:99px;cursor:pointer;
+  font-size:.82rem;font-weight:600;white-space:nowrap;transition:all .2s;}
+.nsb.active{border-color:var(--cyan);background:rgba(0,242,254,.1);color:var(--cyan);}
+#nav-chino .nsb.active{border-color:var(--blue);background:rgba(79,172,254,.12);color:var(--blue);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CHINA 2027</div>
+  <span class="vtag">v0.9</span>
+</header>
+
+<main>
+
+<!-- DÍAS: RESUMEN -->
+<div id="page-dias-resumen" class="page active">
+  <div class="glass" style="text-align:center;padding:1.6rem;">
+    <div style="font-size:1.1rem;font-weight:700;">China 2027 · 11 días</div>
+    <div style="color:var(--mut);font-size:.88rem;margin-bottom:1rem;">Resumen del itinerario completo</div>
+    <div class="trip-route">
+      <div class="cc">🏯 Pekín</div><div class="ra">→</div>
+      <div class="cc">🏺 Xi'an</div><div class="ra">→</div>
+      <div class="cc">🏔️ Zhangjiajie</div><div class="ra">→</div>
+      <div class="cc">🌆 Shanghái</div>
+    </div>
+  </div>
+  <div class="glass">
+    <div class="day-seg"><div class="day-seg-lbl">🏯 Pekín</div>
+      <div class="day-row"><span class="dnb">D1</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D2</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D3</span><span class="drt">Próximamente</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">🏺 Xi'an</div>
+      <div class="day-row"><span class="dnb">D4</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D5</span><span class="drt">Próximamente</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">🏔️ Zhangjiajie</div>
+      <div class="day-row"><span class="dnb">D6</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D7</span><span class="drt">Próximamente</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">🌆 Shanghái</div>
+      <div class="day-row"><span class="dnb">D8</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D9</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D10</span><span class="drt">Próximamente</span></div>
+      <div class="day-row"><span class="dnb">D11</span><span class="drt">Próximamente</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- DÍAS D1–D11 -->
+<div id="page-dias-d1" class="page"><div class="glass dph"><div class="dph-num">1</div><div class="ctag">🏯 Pekín</div><h3>Día 1</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d2" class="page"><div class="glass dph"><div class="dph-num">2</div><div class="ctag">🏯 Pekín</div><h3>Día 2</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d3" class="page"><div class="glass dph"><div class="dph-num">3</div><div class="ctag">🏯 Pekín</div><h3>Día 3</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d4" class="page"><div class="glass dph"><div class="dph-num">4</div><div class="ctag">🏺 Xi'an</div><h3>Día 4</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d5" class="page"><div class="glass dph"><div class="dph-num">5</div><div class="ctag">🏺 Xi'an</div><h3>Día 5</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d6" class="page"><div class="glass dph"><div class="dph-num">6</div><div class="ctag">🏔️ Zhangjiajie</div><h3>Día 6</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d7" class="page"><div class="glass dph"><div class="dph-num">7</div><div class="ctag">🏔️ Zhangjiajie</div><h3>Día 7</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d8" class="page"><div class="glass dph"><div class="dph-num">8</div><div class="ctag">🌆 Shanghái</div><h3>Día 8</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d9" class="page"><div class="glass dph"><div class="dph-num">9</div><div class="ctag">🌆 Shanghái</div><h3>Día 9</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d10" class="page"><div class="glass dph"><div class="dph-num">10</div><div class="ctag">🌆 Shanghái</div><h3>Día 10</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d11" class="page"><div class="glass dph"><div class="dph-num">11</div><div class="ctag">🌆 Shanghái</div><h3>Día 11</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+
+<!-- CERCA -->
+<div id="page-cerca" class="page">
+  <div class="glass empty"><span class="empty-icon">📍</span><h3>Cerca de mí — Próximamente</h3>
+    <p>Lugares del itinerario más cercanos a tu ubicación durante el viaje.</p></div>
+</div>
+
+<!-- CAMBIO -->
+<div id="page-cambio" class="page">
+  <div class="glass rate-card">
+    <div class="rate-meta" style="margin-bottom:.3rem;">Tipo de cambio en tiempo real</div>
+    <div class="rate-big"><span id="rate-display" class="rate-num">Cargando...</span></div>
+    <div class="rate-meta" id="rate-meta">Obteniendo tipo de cambio...</div>
+  </div>
+  <div class="glass">
+    <div class="conv-block">
+      <div><div class="conv-lbl" id="from-lbl">🇪🇺 Euro (€)</div>
+        <input class="conv-inp" type="number" id="conv-inp" placeholder="0" min="0" oninput="doConvert()"></div>
+      <button class="tog" onclick="toggleDir()">⇄ Invertir</button>
+      <div><div class="conv-lbl" id="to-lbl">🇨🇳 Yuan · Renminbi (¥)</div>
+        <div class="conv-res" id="conv-res">—</div></div>
+    </div>
+  </div>
+  <div class="glass">
+    <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.8rem;">Referencia rápida</div>
+    <table class="ref-tbl"><thead><tr><th id="rth-from">€</th><th></th><th id="rth-to">¥ Yuan</th></tr></thead>
+      <tbody id="ref-body"></tbody></table>
+  </div>
+</div>
+
+<!-- TIEMPO -->
+<div id="page-tiempo" class="page">
+  <div class="glass empty" style="padding:2rem 1.5rem;">
+    <span class="empty-icon">🌤️</span><h3>Tiempo — Próximamente</h3>
+    <p>El tiempo de las 4 ciudades se activará cuando se acerque el viaje.</p>
+  </div>
+  <div class="wx-grid">
+    <div class="wx-card"><div class="wx-zh">北京</div><div class="wx-es">Pekín</div><span class="wx-ico">⛅</span><div class="wx-lbl">Sin datos aún</div></div>
+    <div class="wx-card"><div class="wx-zh">西安</div><div class="wx-es">Xi'an</div><span class="wx-ico">☀️</span><div class="wx-lbl">Sin datos aún</div></div>
+    <div class="wx-card"><div class="wx-zh">张家界</div><div class="wx-es">Zhangjiajie</div><span class="wx-ico">🌫️</span><div class="wx-lbl">Sin datos aún</div></div>
+    <div class="wx-card"><div class="wx-zh">上海</div><div class="wx-es">Shanghái</div><span class="wx-ico">🌆</span><div class="wx-lbl">Sin datos aún</div></div>
+  </div>
+</div>
+
+<!-- DE VIAJE -->
+<div id="page-viaje" class="page">
+  <div class="cat-lbl">👋 Básicos</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">Hola</div><div class="ph-zh">你好</div><div class="ph-py">Nǐ hǎo</div></div>
+    <div class="ph-card"><div class="ph-es">Gracias</div><div class="ph-zh">谢谢</div><div class="ph-py">Xièxiè</div></div>
+    <div class="ph-card"><div class="ph-es">De nada</div><div class="ph-zh">不客气</div><div class="ph-py">Bú kèqì</div></div>
+    <div class="ph-card"><div class="ph-es">Lo siento</div><div class="ph-zh">对不起</div><div class="ph-py">Duìbuqǐ</div></div>
+    <div class="ph-card"><div class="ph-es">No pasa nada</div><div class="ph-zh">没关系</div><div class="ph-py">Méi guānxi</div></div>
+  </div>
+  <div class="cat-lbl">🍜 Restaurante</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">Sin picante</div><div class="ph-zh">不要辣</div><div class="ph-py">Bú yào là</div></div>
+    <div class="ph-card"><div class="ph-es">La cuenta</div><div class="ph-zh">买单</div><div class="ph-py">Mǎidān</div></div>
+    <div class="ph-card"><div class="ph-es">Agua fría</div><div class="ph-zh">冰水</div><div class="ph-py">Bīng shuǐ</div></div>
+    <div class="ph-card"><div class="ph-es">¿Menú en inglés?</div><div class="ph-zh">有英文菜单吗？</div><div class="ph-py">Yǒu yīngwén càidān ma?</div></div>
+    <div class="ph-card"><div class="ph-es">¡Está delicioso!</div><div class="ph-zh">好吃！</div><div class="ph-py">Hàochī!</div></div>
+  </div>
+  <div class="cat-lbl">💰 Dinero</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">¿Cuánto cuesta?</div><div class="ph-zh">多少钱？</div><div class="ph-py">Duōshao qián?</div></div>
+    <div class="ph-card"><div class="ph-es">Muy caro</div><div class="ph-zh">太贵了</div><div class="ph-py">Tài guì le</div></div>
+    <div class="ph-card"><div class="ph-es">Más barato</div><div class="ph-zh">便宜点</div><div class="ph-py">Piányí diǎn</div></div>
+    <div class="ph-card"><div class="ph-es">Quiero esto</div><div class="ph-zh">我要这个</div><div class="ph-py">Wǒ yào zhège</div></div>
+    <div class="ph-card"><div class="ph-es">¿Aceptan tarjeta?</div><div class="ph-zh">可以刷卡吗？</div><div class="ph-py">Kěyǐ shuākǎ ma?</div></div>
+  </div>
+  <div class="cat-lbl">🚇 Transporte</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">¿Cómo voy a...?</div><div class="ph-zh">去...怎么走？</div><div class="ph-py">Qù... zěnme zǒu?</div></div>
+    <div class="ph-card"><div class="ph-es">¿Dónde está el metro?</div><div class="ph-zh">地铁在哪里？</div><div class="ph-py">Dìtiě zài nǎlǐ?</div></div>
+    <div class="ph-card"><div class="ph-es">Me he perdido</div><div class="ph-zh">我迷路了</div><div class="ph-py">Wǒ mílù le</div></div>
+    <div class="ph-card"><div class="ph-es">¡Para!</div><div class="ph-zh">停！</div><div class="ph-py">Tíng!</div></div>
+  </div>
+  <div class="cat-lbl">🚨 Urgencias</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">¡Socorro!</div><div class="ph-zh">救命！</div><div class="ph-py">Jiùmìng!</div></div>
+    <div class="ph-card"><div class="ph-es">¿Dónde hay hospital?</div><div class="ph-zh">医院在哪里？</div><div class="ph-py">Yīyuàn zài nǎlǐ?</div></div>
+    <div class="ph-card"><div class="ph-es">Estoy enfermo/a</div><div class="ph-zh">我生病了</div><div class="ph-py">Wǒ shēngbìng le</div></div>
+    <div class="ph-card"><div class="ph-es">¡Llama a la policía!</div><div class="ph-zh">叫警察！</div><div class="ph-py">Jiào jǐngchá!</div></div>
+  </div>
+  <div class="cat-lbl">💬 Comunicación</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="ph-es">¿Hablas inglés?</div><div class="ph-zh">你说英语吗？</div><div class="ph-py">Nǐ shuō yīngyǔ ma?</div></div>
+    <div class="ph-card"><div class="ph-es">No entiendo</div><div class="ph-zh">我不明白</div><div class="ph-py">Wǒ bù míngbái</div></div>
+    <div class="ph-card"><div class="ph-es">Habla más despacio</div><div class="ph-zh">请说慢点</div><div class="ph-py">Qǐng shuō màn diǎn</div></div>
+    <div class="ph-card"><div class="ph-es">¿Hay WiFi?</div><div class="ph-zh">有WiFi吗？</div><div class="ph-py">Yǒu WiFi ma?</div></div>
+  </div>
+</div>
+
+<!-- RADICALES — DISEÑO RICO -->
+<div id="page-radicales" class="page">
+  <!-- Selector de radicales -->
+  <div class="rsel" id="rsel">
+    <button class="rsb active" onclick="showRad(0,this)">人</button>
+    <button class="rsb" onclick="showRad(1,this)">口</button>
+    <button class="rsb" onclick="showRad(2,this)">水</button>
+    <button class="rsb" onclick="showRad(3,this)">木</button>
+    <button class="rsb" onclick="showRad(4,this)">门</button>
+    <button class="rsb" onclick="showRad(5,this)">日</button>
+    <button class="rsb" onclick="showRad(6,this)">火</button>
+    <button class="rsb" onclick="showRad(7,this)">女</button>
+    <button class="rsb" onclick="showRad(8,this)">山</button>
+    <button class="rsb" onclick="showRad(9,this)">心</button>
+    <button class="rsb" onclick="showRad(10,this)">手</button>
+    <button class="rsb" onclick="showRad(11,this)">目</button>
+    <button class="rsb" onclick="showRad(12,this)">土</button>
+    <button class="rsb" onclick="showRad(13,this)">言</button>
+    <button class="rsb" onclick="showRad(14,this)">金</button>
+    <button class="rsb" onclick="showRad(15,this)">车</button>
+    <button class="rsb" onclick="showRad(16,this)">食</button>
+    <button class="rsb" onclick="showRad(17,this)">虫</button>
+    <button class="rsb" onclick="showRad(18,this)">雨</button>
+    <button class="rsb" onclick="showRad(19,this)">月</button>
+  </div>
+  <!-- Header del radical -->
+  <div class="glass" style="margin-bottom:1rem;">
+    <div class="rad-hdr" id="rad-hdr"></div>
+  </div>
+  <!-- Grid de caracteres derivados -->
+  <div class="dchar-grid" id="dchar-grid"></div>
+</div>
+
+<!-- PRACTICA (QUIZ) -->
+<div id="page-practica" class="page">
+  <div class="qprog">
+    <div class="qprow">
+      <span class="qctr">Pregunta <span id="q-num">1</span> de <span id="q-tot">8</span></span>
+      <span class="qsc">✅ <span id="q-sc">0</span> correctas</span>
+    </div>
+    <div class="pt"><div class="pf" id="q-bar"></div></div>
+  </div>
+  <div class="qcard" id="qcard">
+    <div class="qlbl">¿Qué significa este radical?</div>
+    <span class="qchar" id="q-ch"></span>
+    <div class="qpy" id="q-py"></div>
+    <div class="qopts" id="q-opts"></div>
+    <div class="qfb" id="q-fb"></div>
+  </div>
+  <div class="qend" id="qend" style="display:none;">
+    <div class="estars" id="estars"></div>
+    <h2 class="eh">Quiz terminado</h2>
+    <div class="enum" id="enum"></div>
+    <div class="eof">respuestas correctas</div>
+    <p class="emsg" id="emsg"></p>
+    <button class="retry" onclick="startQuiz()">🔄 Intentar de nuevo</button>
+  </div>
+</div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="nav-panel" id="nav-main">
+    <button class="nitem active" data-id="dias" onclick="tapDias(this)"><span class="nico">📅</span><span class="nlbl">Días</span></button>
+    <button class="nitem" data-id="cerca" onclick="tapCerca(this)"><span class="nico">📍</span><span class="nlbl">Cerca</span></button>
+    <button class="nitem" data-id="cambio" onclick="tapCambio(this)"><span class="nico">💱</span><span class="nlbl">Cambio</span></button>
+    <button class="nitem" data-id="util" onclick="tapUtil(this)"><span class="nico">ℹ️</span><span class="nlbl">Útil</span></button>
+  </div>
+  <div class="nav-panel active" id="nav-dias">
+    <div class="subnav-wrapper">
+      <button class="nav-back" onclick="backToMain('dias')"><span class="ba">‹</span><span class="bt">Menú</span></button>
+      <div class="nscroll">
+        <button class="nsb active" onclick="tapDia('resumen',this)">Resumen</button>
+        <button class="nsb" onclick="tapDia('d1',this)">Día 1</button>
+        <button class="nsb" onclick="tapDia('d2',this)">Día 2</button>
+        <button class="nsb" onclick="tapDia('d3',this)">Día 3</button>
+        <button class="nsb" onclick="tapDia('d4',this)">Día 4</button>
+        <button class="nsb" onclick="tapDia('d5',this)">Día 5</button>
+        <button class="nsb" onclick="tapDia('d6',this)">Día 6</button>
+        <button class="nsb" onclick="tapDia('d7',this)">Día 7</button>
+        <button class="nsb" onclick="tapDia('d8',this)">Día 8</button>
+        <button class="nsb" onclick="tapDia('d9',this)">Día 9</button>
+        <button class="nsb" onclick="tapDia('d10',this)">Día 10</button>
+        <button class="nsb" onclick="tapDia('d11',this)">Día 11</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-panel" id="nav-util">
+    <div class="subnav-wrapper">
+      <button class="nav-back" onclick="backToMain('util')"><span class="ba">‹</span><span class="bt">Menú</span></button>
+      <div class="nscroll">
+        <button class="nsb" onclick="tapTiempo(this)">🌤️ Tiempo</button>
+        <button class="nsb" onclick="tapAprender(this)">文 Aprender Chino</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-panel" id="nav-chino">
+    <div class="subnav-wrapper">
+      <button class="nav-back" onclick="backToUtil()"><span class="ba">‹</span><span class="bt">Útil</span></button>
+      <div class="nscroll">
+        <button class="nsb active" onclick="tapChino('viaje',this)">🚗 De Viaje</button>
+        <button class="nsb" onclick="tapChino('radicales',this)">🧱 Radicales</button>
+        <button class="nsb" onclick="tapChino('practica',this)">⚡ Practica</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+/* ══ NAV STATE ══ */
+let activeMain='dias', quizState='idle';
+
+function showPanel(id){document.querySelectorAll('.nav-panel').forEach(p=>p.classList.remove('active'));document.getElementById('nav-'+id).classList.add('active');}
+function loadPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');if(id==='practica'&&quizState!=='running')startQuiz();}
+function setMainActive(btn){document.querySelectorAll('.nitem').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function setSubActive(panelId,btn){document.querySelectorAll('#nav-'+panelId+' .nsb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function restoreMainActive(){document.querySelectorAll('.nitem').forEach(b=>{b.classList.toggle('active',b.dataset.id===activeMain);});}
+
+function tapDias(btn){activeMain='dias';setMainActive(btn);showPanel('dias');if(!document.querySelector('#nav-dias .nsb.active')){document.querySelector('#nav-dias .nsb').classList.add('active');loadPage('dias-resumen');}}
+function tapCerca(btn){activeMain='cerca';setMainActive(btn);showPanel('main');loadPage('cerca');}
+function tapCambio(btn){activeMain='cambio';setMainActive(btn);showPanel('main');loadPage('cambio');}
+function tapUtil(btn){activeMain='util';setMainActive(btn);showPanel('util');if(!document.querySelector('#nav-util .nsb.active')){document.querySelector('#nav-util .nsb').classList.add('active');loadPage('tiempo');}}
+function tapDia(id,btn){setSubActive('dias',btn);loadPage('dias-'+id);}
+function tapTiempo(btn){setSubActive('util',btn);loadPage('tiempo');}
+function tapAprender(btn){setSubActive('util',btn);showPanel('chino');if(!document.querySelector('#nav-chino .nsb.active')){document.querySelector('#nav-chino .nsb').classList.add('active');loadPage('viaje');}}
+function tapChino(id,btn){setSubActive('chino',btn);loadPage(id);}
+function backToMain(from){showPanel('main');restoreMainActive();}
+function backToUtil(){showPanel('util');var bs=document.querySelectorAll('#nav-util .nsb');bs.forEach(b=>b.classList.remove('active'));bs[1].classList.add('active');}
+
+/* ══ CONVERSOR ══ */
+let rate=7.88,dir='EUR_CNY';
+async function fetchRate(){
+  try{const r=await fetch('https://open.er-api.com/v6/latest/EUR');const d=await r.json();
+    if(d.rates&&d.rates.CNY){rate=d.rates.CNY;const n=new Date();document.getElementById('rate-meta').textContent='Actualizado: '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0')+' · open.er-api.com';}
+  }catch(e){document.getElementById('rate-meta').textContent='Tipo orientativo · sin conexión';}
+  document.getElementById('rate-display').textContent=dir==='EUR_CNY'?'1 € = ¥ '+rate.toFixed(4):'1 ¥ = € '+(1/rate).toFixed(4);buildTable();
+}
+function doConvert(){const v=parseFloat(document.getElementById('conv-inp').value)||0;if(!v){document.getElementById('conv-res').textContent='—';return;}const res=dir==='EUR_CNY'?(v*rate).toFixed(2):(v/rate).toFixed(2);document.getElementById('conv-res').textContent=(dir==='EUR_CNY'?'¥':'€')+' '+Number(res).toLocaleString('es-ES',{minimumFractionDigits:2});}
+function toggleDir(){dir=dir==='EUR_CNY'?'CNY_EUR':'EUR_CNY';const eur=dir==='EUR_CNY';document.getElementById('from-lbl').textContent=eur?'🇪🇺 Euro (€)':'🇨🇳 Yuan · Renminbi (¥)';document.getElementById('to-lbl').textContent=eur?'🇨🇳 Yuan · Renminbi (¥)':'🇪🇺 Euro (€)';document.getElementById('rth-from').textContent=eur?'€':'¥';document.getElementById('rth-to').textContent=eur?'¥ Yuan':'€';document.getElementById('conv-inp').value='';document.getElementById('conv-res').textContent='—';document.getElementById('rate-display').textContent=eur?'1 € = ¥ '+rate.toFixed(4):'1 ¥ = € '+(1/rate).toFixed(4);buildTable();}
+function buildTable(){const eur=dir==='EUR_CNY';const amounts=eur?[1,5,10,20,50,100,200,500]:[10,20,50,100,200,500,1000,2000];document.getElementById('ref-body').innerHTML=amounts.map(a=>{const res=eur?(a*rate).toFixed(2):(a/rate).toFixed(2);return '<tr><td class="rf">'+(eur?'€':'¥')+' '+a+'</td><td class="ra2">→</td><td class="rt">'+(eur?'¥':'€')+' '+Number(res).toLocaleString('es-ES',{minimumFractionDigits:2})+'</td></tr>';}).join('');}
+
+/* ══ RADICALES — DATOS ══ */
+const RDATA=[
+  {char:'人',variant:'亻',py:'rén',name:'Persona',sem:'Seres humanos, relaciones sociales y pronombres',pic:'Silueta de una persona dando un paso',
+   d:[{ch:'人',py:'rén',es:'Persona'},{ch:'你',py:'nǐ',es:'Tú'},{ch:'他',py:'tā',es:'Él'},{ch:'她',py:'tā',es:'Ella'},{ch:'们',py:'men',es:'Plural'},{ch:'个',py:'gè',es:'Clasificador general'},{ch:'住',py:'zhù',es:'Vivir / Alojarse'},{ch:'做',py:'zuò',es:'Hacer'}]},
+  {char:'口',variant:null,py:'kǒu',name:'Boca',sem:'Comunicación, sonidos, sabores y apertura',pic:'Boca abierta vista de frente',
+   d:[{ch:'口',py:'kǒu',es:'Boca'},{ch:'吃',py:'chī',es:'Comer'},{ch:'喝',py:'hē',es:'Beber'},{ch:'说',py:'shuō',es:'Hablar'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'叫',py:'jiào',es:'Llamarse'},{ch:'唱',py:'chàng',es:'Cantar'},{ch:'号',py:'hào',es:'Número'}]},
+  {char:'水',variant:'氵',py:'shuǐ',name:'Agua',sem:'Líquidos, ríos, humedad y limpieza',pic:'Corriente de agua con ondas laterales',
+   d:[{ch:'水',py:'shuǐ',es:'Agua'},{ch:'海',py:'hǎi',es:'Mar'},{ch:'河',py:'hé',es:'Río'},{ch:'游',py:'yóu',es:'Nadar'},{ch:'汤',py:'tāng',es:'Sopa'},{ch:'酒',py:'jiǔ',es:'Alcohol'},{ch:'洗',py:'xǐ',es:'Lavar'},{ch:'泡',py:'pào',es:'Remojar'}]},
+  {char:'木',variant:null,py:'mù',name:'Árbol / Madera',sem:'Árboles, plantas y objetos de madera',pic:'Árbol con ramas arriba y raíces abajo',
+   d:[{ch:'木',py:'mù',es:'Madera'},{ch:'树',py:'shù',es:'Árbol'},{ch:'桌',py:'zhuō',es:'Mesa'},{ch:'椅',py:'yǐ',es:'Silla'},{ch:'林',py:'lín',es:'Bosque'},{ch:'森',py:'sēn',es:'Selva'},{ch:'床',py:'chuáng',es:'Cama'},{ch:'柜',py:'guì',es:'Armario'}]},
+  {char:'门',variant:null,py:'mén',name:'Puerta',sem:'Puertas, entradas y espacios acotados',pic:'Dos hojas de una puerta batiente',
+   d:[{ch:'门',py:'mén',es:'Puerta'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'闻',py:'wén',es:'Oler / Escuchar'},{ch:'间',py:'jiān',es:'Espacio / Entre'},{ch:'闲',py:'xián',es:'Ocioso'},{ch:'闹',py:'nào',es:'Ruidoso'},{ch:'闷',py:'mēn',es:'Sofocante'},{ch:'闯',py:'chuǎng',es:'Irrumpir'}]},
+  {char:'日',variant:null,py:'rì',name:'Sol / Día',sem:'Luz solar, tiempo y períodos del día',pic:'Sol con un punto central brillante',
+   d:[{ch:'日',py:'rì',es:'Día / Sol'},{ch:'明',py:'míng',es:'Brillante'},{ch:'时',py:'shí',es:'Tiempo / Hora'},{ch:'早',py:'zǎo',es:'Mañana temprana'},{ch:'晚',py:'wǎn',es:'Noche / Tarde'},{ch:'晴',py:'qíng',es:'Soleado'},{ch:'春',py:'chūn',es:'Primavera'},{ch:'暖',py:'nuǎn',es:'Cálido'}]},
+  {char:'火',variant:'灬',py:'huǒ',name:'Fuego',sem:'Fuego, calor, cocción y energía',pic:'Llamas ascendentes con chispas',
+   d:[{ch:'火',py:'huǒ',es:'Fuego'},{ch:'热',py:'rè',es:'Caliente'},{ch:'烧',py:'shāo',es:'Quemar'},{ch:'炒',py:'chǎo',es:'Saltear'},{ch:'灯',py:'dēng',es:'Lámpara'},{ch:'烤',py:'kǎo',es:'Asar'},{ch:'炸',py:'zhà',es:'Freír'},{ch:'焰',py:'yàn',es:'Llama'}]},
+  {char:'女',variant:null,py:'nǚ',name:'Mujer',sem:'Mujeres, familia femenina y relaciones',pic:'Figura de mujer con brazos cruzados arrodillada',
+   d:[{ch:'女',py:'nǚ',es:'Mujer'},{ch:'妈',py:'mā',es:'Mamá'},{ch:'姐',py:'jiě',es:'Hermana mayor'},{ch:'妹',py:'mèi',es:'Hermana menor'},{ch:'她',py:'tā',es:'Ella'},{ch:'好',py:'hǎo',es:'Bueno'},{ch:'姓',py:'xìng',es:'Apellido'},{ch:'婚',py:'hūn',es:'Matrimonio'}]},
+  {char:'山',variant:null,py:'shān',name:'Montaña',sem:'Montañas, islas y elevaciones del terreno',pic:'Tres picos de montañas vistos de frente',
+   d:[{ch:'山',py:'shān',es:'Montaña'},{ch:'岛',py:'dǎo',es:'Isla'},{ch:'岩',py:'yán',es:'Roca / Peña'},{ch:'峰',py:'fēng',es:'Pico / Cumbre'},{ch:'岸',py:'àn',es:'Orilla / Costa'},{ch:'岭',py:'lǐng',es:'Cordillera'},{ch:'崖',py:'yá',es:'Acantilado'},{ch:'峡',py:'xiá',es:'Desfiladero / Cañón'}]},
+  {char:'心',variant:'忄',py:'xīn',name:'Corazón',sem:'Emociones, sentimientos y estados de ánimo',pic:'Corazón humano con tres cavidades',
+   d:[{ch:'心',py:'xīn',es:'Corazón'},{ch:'想',py:'xiǎng',es:'Pensar / Querer'},{ch:'爱',py:'ài',es:'Amor / Amar'},{ch:'忙',py:'máng',es:'Ocupado'},{ch:'快',py:'kuài',es:'Rápido / Contento'},{ch:'怕',py:'pà',es:'Tener miedo'},{ch:'忘',py:'wàng',es:'Olvidar'},{ch:'情',py:'qíng',es:'Sentimiento / Emoción'}]},
+  {char:'手',variant:'扌',py:'shǒu',name:'Mano',sem:'Acciones manuales, tocar y manipular objetos',pic:'Mano con cinco dedos extendidos',
+   d:[{ch:'手',py:'shǒu',es:'Mano'},{ch:'打',py:'dǎ',es:'Pegar / Jugar'},{ch:'拿',py:'ná',es:'Coger / Tomar'},{ch:'推',py:'tuī',es:'Empujar'},{ch:'拉',py:'lā',es:'Tirar / Jalar'},{ch:'找',py:'zhǎo',es:'Buscar'},{ch:'接',py:'jiē',es:'Recibir / Recoger'},{ch:'握',py:'wò',es:'Agarrar'}]},
+  {char:'目',variant:null,py:'mù',name:'Ojo',sem:'Vista, observación y percepción visual',pic:'Ojo humano rotado verticalmente con iris',
+   d:[{ch:'目',py:'mù',es:'Ojo / Objetivo'},{ch:'看',py:'kàn',es:'Ver / Mirar'},{ch:'眼',py:'yǎn',es:'Ojo'},{ch:'睡',py:'shuì',es:'Dormir'},{ch:'眉',py:'méi',es:'Ceja'},{ch:'盲',py:'máng',es:'Ciego'},{ch:'眺',py:'tiào',es:'Contemplar el horizonte'},{ch:'瞪',py:'dèng',es:'Mirar fijamente'}]},
+  {char:'土',variant:null,py:'tǔ',name:'Tierra',sem:'Tierra, suelo y estructuras construidas',pic:'Terrón de tierra emergiendo del suelo',
+   d:[{ch:'土',py:'tǔ',es:'Tierra / Suelo'},{ch:'地',py:'dì',es:'Lugar / Tierra'},{ch:'坐',py:'zuò',es:'Sentarse'},{ch:'城',py:'chéng',es:'Ciudad / Muralla'},{ch:'块',py:'kuài',es:'Trozo / Bloque'},{ch:'坏',py:'huài',es:'Malo / Roto'},{ch:'场',py:'chǎng',es:'Campo / Lugar'},{ch:'墙',py:'qiáng',es:'Pared / Muro'}]},
+  {char:'言',variant:'讠',py:'yán',name:'Hablar',sem:'Palabras, idiomas y comunicación verbal',pic:'Boca con ondas de sonido saliendo hacia arriba',
+   d:[{ch:'说',py:'shuō',es:'Hablar / Decir'},{ch:'话',py:'huà',es:'Palabra / Habla'},{ch:'请',py:'qǐng',es:'Por favor / Invitar'},{ch:'谢',py:'xiè',es:'Agradecer'},{ch:'语',py:'yǔ',es:'Idioma / Lengua'},{ch:'读',py:'dú',es:'Leer'},{ch:'谁',py:'shéi',es:'Quién'},{ch:'词',py:'cí',es:'Palabra / Vocabulario'}]},
+  {char:'金',variant:'钅',py:'jīn',name:'Metal / Oro',sem:'Metales, monedas y objetos metálicos',pic:'Pepitas de metal enterradas bajo la tierra',
+   d:[{ch:'金',py:'jīn',es:'Oro / Metal'},{ch:'钱',py:'qián',es:'Dinero'},{ch:'银',py:'yín',es:'Plata'},{ch:'铁',py:'tiě',es:'Hierro'},{ch:'钟',py:'zhōng',es:'Reloj / Campana'},{ch:'铃',py:'líng',es:'Timbre'},{ch:'针',py:'zhēn',es:'Aguja'},{ch:'锁',py:'suǒ',es:'Cerradura'}]},
+  {char:'车',variant:null,py:'chē',name:'Vehículo',sem:'Vehículos, transporte rodado y movimiento',pic:'Carro de guerra visto desde arriba',
+   d:[{ch:'车',py:'chē',es:'Vehículo / Coche'},{ch:'轮',py:'lún',es:'Rueda'},{ch:'辆',py:'liàng',es:'Clasificador de vehículos'},{ch:'轻',py:'qīng',es:'Ligero'},{ch:'转',py:'zhuǎn',es:'Girar / Cambiar'},{ch:'较',py:'jiào',es:'Comparar / Bastante'},{ch:'军',py:'jūn',es:'Ejército'},{ch:'辈',py:'bèi',es:'Generación'}]},
+  {char:'食',variant:'饣',py:'shí',name:'Comida',sem:'Alimentos, comer y restaurantes',pic:'Cuenco de arroz tapado listo para comer',
+   d:[{ch:'食',py:'shí',es:'Comer / Comida'},{ch:'饭',py:'fàn',es:'Arroz / Comida'},{ch:'饿',py:'è',es:'Tener hambre'},{ch:'饮',py:'yǐn',es:'Beber'},{ch:'饺',py:'jiǎo',es:'Empanadilla china'},{ch:'饼',py:'bǐng',es:'Torta / Pan plano'},{ch:'馆',py:'guǎn',es:'Restaurante / Local'},{ch:'饱',py:'bǎo',es:'Estar lleno / Saciado'}]},
+  {char:'虫',variant:null,py:'chóng',name:'Insecto',sem:'Insectos, reptiles y animales pequeños',pic:'Serpiente enrollada con la cabeza elevada',
+   d:[{ch:'虫',py:'chóng',es:'Insecto / Bicho'},{ch:'蛇',py:'shé',es:'Serpiente'},{ch:'蜂',py:'fēng',es:'Abeja / Avispa'},{ch:'蜜',py:'mì',es:'Miel'},{ch:'蝶',py:'dié',es:'Mariposa'},{ch:'蛙',py:'wā',es:'Rana'},{ch:'蚊',py:'wén',es:'Mosquito'},{ch:'螺',py:'luó',es:'Caracol'}]},
+  {char:'雨',variant:null,py:'yǔ',name:'Lluvia',sem:'Precipitaciones y fenómenos atmosféricos',pic:'Nube con gotas de lluvia cayendo',
+   d:[{ch:'雨',py:'yǔ',es:'Lluvia'},{ch:'雪',py:'xuě',es:'Nieve'},{ch:'雷',py:'léi',es:'Trueno'},{ch:'雾',py:'wù',es:'Niebla / Bruma'},{ch:'霜',py:'shuāng',es:'Escarcha'},{ch:'露',py:'lù',es:'Rocío'},{ch:'霞',py:'xiá',es:'Arrebol / Nubes rosas'},{ch:'零',py:'líng',es:'Cero / Gotas de lluvia'}]},
+  {char:'月',variant:'肉',py:'yuè',name:'Luna / Mes',sem:'Luna, meses del año y partes del cuerpo',pic:'Luna creciente con dos trazos interiores',
+   d:[{ch:'月',py:'yuè',es:'Luna / Mes'},{ch:'明',py:'míng',es:'Brillante / Claro'},{ch:'朋',py:'péng',es:'Amigo'},{ch:'期',py:'qī',es:'Período / Semana'},{ch:'腿',py:'tuǐ',es:'Pierna'},{ch:'脸',py:'liǎn',es:'Cara / Rostro'},{ch:'胸',py:'xiōng',es:'Pecho'},{ch:'肥',py:'féi',es:'Gordo / Graso'}]},
+];
+
+function showRad(idx,btn){
+  document.querySelectorAll('.rsb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const r=RDATA[idx];
+  const charDisp=r.variant?r.char+' ('+r.variant+')':r.char;
+  document.getElementById('rad-hdr').innerHTML=
+    '<div class="rhd-l"><div class="rhd-char">'+charDisp+'</div></div>'+
+    '<div class="rhd-r">'+
+      '<div class="rhd-title">Radical de '+r.name+' ('+r.py+')</div>'+
+      '<div class="rhd-sem">'+r.sem+'.</div>'+
+      '<div class="rhd-pic"><span>🎨</span> Pictograma: '+r.pic+'.</div>'+
+    '</div>';
+  document.getElementById('dchar-grid').innerHTML=r.d.map(d=>
+    '<div class="dcard">'+
+      '<div class="dc-ch">'+d.ch+'</div>'+
+      '<div class="dc-py">'+d.py+'</div>'+
+      '<div class="dc-es">'+d.es+'</div>'+
+      '<button class="dc-audio" onclick="playAudio(\''+d.ch+'\')">🔊 Audio</button>'+
+    '</div>'
+  ).join('');
+}
+
+function playAudio(char){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(char);
+  u.lang='zh-CN';u.rate=0.7;
+  window.speechSynthesis.speak(u);
+}
+
+function initRadicales(){showRad(0,document.querySelector('.rsb'));}
+
+/* ══ QUIZ ══ */
+const QR=[
+  {ch:'人',py:'rén',mn:'Persona'},{ch:'口',py:'kǒu',mn:'Boca'},
+  {ch:'水',py:'shuǐ',mn:'Agua'},{ch:'木',py:'mù',mn:'Árbol / Madera'},
+  {ch:'门',py:'mén',mn:'Puerta'},{ch:'日',py:'rì',mn:'Sol / Día'},
+  {ch:'火',py:'huǒ',mn:'Fuego'},{ch:'女',py:'nǚ',mn:'Mujer'},
+  {ch:'山',py:'shān',mn:'Montaña'},{ch:'心',py:'xīn',mn:'Corazón'},
+  {ch:'手',py:'shǒu',mn:'Mano'},{ch:'目',py:'mù',mn:'Ojo'},
+  {ch:'土',py:'tǔ',mn:'Tierra'},{ch:'言',py:'yán',mn:'Hablar'},
+  {ch:'金',py:'jīn',mn:'Metal / Oro'},{ch:'车',py:'chē',mn:'Vehículo'},
+  {ch:'食',py:'shí',mn:'Comida'},{ch:'虫',py:'chóng',mn:'Insecto'},
+  {ch:'雨',py:'yǔ',mn:'Lluvia'},{ch:'月',py:'yuè',mn:'Luna / Mes'},
+];
+let qs=[],ci=0,sc=0;
+const rnd=a=>[...a].sort(()=>Math.random()-.5);
+function startQuiz(){quizState='running';qs=rnd(QR);ci=0;sc=0;document.getElementById('qend').style.display='none';document.getElementById('qcard').style.display='block';document.getElementById('q-tot').textContent=QR.length;renderQ();}
+function renderQ(){document.getElementById('q-num').textContent=ci+1;document.getElementById('q-sc').textContent=sc;document.getElementById('q-bar').style.width=(ci/QR.length*100)+'%';const q=qs[ci];const ch=document.getElementById('q-ch');ch.textContent=q.ch;ch.classList.remove('pop');void ch.offsetWidth;ch.classList.add('pop');document.getElementById('q-py').textContent=q.py;document.getElementById('q-fb').textContent='';document.getElementById('q-fb').className='qfb';const wrong=rnd(QR.filter(r=>r.ch!==q.ch)).slice(0,3);const opts=rnd([q,...wrong]);const c=document.getElementById('q-opts');c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o.mn;b.addEventListener('click',()=>answerQ(b,o.ch===q.ch));c.appendChild(b);});}
+function answerQ(sel,ok){document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(b.textContent===qs[ci].mn)b.classList.add('ok');});const fb=document.getElementById('q-fb');if(ok){sc++;fb.textContent='✅ ¡Correcto!';fb.className='qfb fbok';}else{sel.classList.add('no');fb.textContent='❌ Incorrecto — la correcta está en verde';fb.className='qfb fbno';}setTimeout(()=>{ci++;ci<QR.length?renderQ():endQuiz();},1300);}
+function endQuiz(){quizState='ended';document.getElementById('q-num').textContent=QR.length;document.getElementById('q-sc').textContent=sc;document.getElementById('q-bar').style.width='100%';document.getElementById('qcard').style.display='none';const p=sc/QR.length;document.getElementById('estars').textContent=p===1?'⭐⭐⭐':p>=.75?'⭐⭐':p>=.5?'⭐':'💪';document.getElementById('enum').textContent=sc+' / '+QR.length;document.getElementById('emsg').textContent=p===1?'¡Perfecto! Estás listo para China 🇨🇳':p>=.75?'¡Muy bien! Repasa las que fallaste':p>=.5?'¡Buen intento! Sigue practicando':'Los radicales llevan tiempo. ¡No te rindas!';document.getElementById('qend').style.display='block';}
+
+/* ══ INIT ══ */
+fetchRate();buildTable();initRadicales();loadPage('dias-resumen');
+</script>
+</body>
+</html>

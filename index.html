@@ -194,13 +194,25 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   font-size:.82rem;font-weight:600;white-space:nowrap;transition:all .2s;}
 .nsb.active{border-color:var(--cyan);background:rgba(0,242,254,.1);color:var(--cyan);}
 #nav-chino .nsb.active{border-color:var(--blue);background:rgba(79,172,254,.12);color:var(--blue);}
+
+.dch-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.dch-date{font-size:.82rem;color:var(--mut);font-weight:600;}
+.dch-badge{font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:99px;}
+.dch-badge-city{background:rgba(0,242,254,.08);border:1px solid rgba(0,242,254,.18);color:var(--cyan);}
+.dch-badge-travel{background:rgba(255,200,0,.08);border:1px solid rgba(255,200,0,.3);color:#ffc800;}
+.dch-badge-train{background:rgba(79,172,254,.08);border:1px solid rgba(79,172,254,.3);color:var(--blue);}
+.dch-title{font-size:1.1rem;font-weight:700;margin-bottom:0;}
+.dch-desc{font-size:.9rem;color:var(--mut);line-height:1.65;margin-bottom:0;}
+.place-grid{display:flex;flex-wrap:wrap;gap:.5rem;}
+.place-chip{background:rgba(79,172,254,.08);border:1px solid rgba(79,172,254,.2);color:var(--blue);border-radius:99px;padding:5px 14px;font-size:.82rem;font-weight:600;font-style:italic;}
+.sec-lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.7rem;}
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">CHINA 2027</div>
-  <span class="vtag">v0.9</span>
+  <span class="vtag">v0.10</span>
 </header>
 
 <main>
@@ -208,50 +220,183 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 <!-- DÍAS: RESUMEN -->
 <div id="page-dias-resumen" class="page active">
   <div class="glass" style="text-align:center;padding:1.6rem;">
-    <div style="font-size:1.1rem;font-weight:700;">China 2027 · 11 días</div>
-    <div style="color:var(--mut);font-size:.88rem;margin-bottom:1rem;">Resumen del itinerario completo</div>
+    <div style="font-size:1.1rem;font-weight:700;">China 2027 · 15 días</div>
+    <div style="color:var(--mut);font-size:.88rem;margin-bottom:1rem;">10 – 24 de Abril de 2027</div>
     <div class="trip-route">
       <div class="cc">🏯 Pekín</div><div class="ra">→</div>
-      <div class="cc">🏺 Xi'an</div><div class="ra">→</div>
+      <div class="cc">🐼 Chengdu</div><div class="ra">→</div>
+      <div class="cc">🌆 Chongqing</div><div class="ra">→</div>
       <div class="cc">🏔️ Zhangjiajie</div><div class="ra">→</div>
-      <div class="cc">🌆 Shanghái</div>
+      <div class="cc">🌇 Shanghái</div>
     </div>
   </div>
   <div class="glass">
-    <div class="day-seg"><div class="day-seg-lbl">🏯 Pekín</div>
-      <div class="day-row"><span class="dnb">D1</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D2</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D3</span><span class="drt">Próximamente</span></div>
+    <div class="day-seg"><div class="day-seg-lbl">✈️ Vuelo · Día 1</div>
+      <div class="day-row"><span class="dnb">D1</span><span class="drt">sáb 10/04 · Madrid → Pekín vía Munich</span></div>
     </div>
-    <div class="day-seg"><div class="day-seg-lbl">🏺 Xi'an</div>
-      <div class="day-row"><span class="dnb">D4</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D5</span><span class="drt">Próximamente</span></div>
+    <div class="day-seg"><div class="day-seg-lbl">🏯 Pekín · Días 2–4</div>
+      <div class="day-row"><span class="dnb">D2</span><span class="drt">dom 11/04 · Llegada · Beihai, Sichahai, Hutongs</span></div>
+      <div class="day-row"><span class="dnb">D3</span><span class="drt">lun 12/04 · Ciudad Prohibida · Tiananmen</span></div>
+      <div class="day-row"><span class="dnb">D4</span><span class="drt">mar 13/04 · Gran Muralla de Mutianyu</span></div>
     </div>
-    <div class="day-seg"><div class="day-seg-lbl">🏔️ Zhangjiajie</div>
-      <div class="day-row"><span class="dnb">D6</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D7</span><span class="drt">Próximamente</span></div>
+    <div class="day-seg"><div class="day-seg-lbl">🐼 Chengdu · Días 5–7</div>
+      <div class="day-row"><span class="dnb">D5</span><span class="drt">mié 14/04 · Vuelo · Chunxi Road, Taikoo Li</span></div>
+      <div class="day-row"><span class="dnb">D6</span><span class="drt">jue 15/04 · Gran Buda de Leshan</span></div>
+      <div class="day-row"><span class="dnb">D7</span><span class="drt">vie 16/04 · Pandas · Wuhou · Jinli · Kuanzhai</span></div>
     </div>
-    <div class="day-seg"><div class="day-seg-lbl">🌆 Shanghái</div>
-      <div class="day-row"><span class="dnb">D8</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D9</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D10</span><span class="drt">Próximamente</span></div>
-      <div class="day-row"><span class="dnb">D11</span><span class="drt">Próximamente</span></div>
+    <div class="day-seg"><div class="day-seg-lbl">🌆 Chongqing · Días 8–9</div>
+      <div class="day-row"><span class="dnb">D8</span><span class="drt">sáb 17/04 · Tren · Hongyadong · Drones</span></div>
+      <div class="day-row"><span class="dnb">D9</span><span class="drt">dom 18/04 · Jiefangbei · Shibati · Ciqikou · Eling</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">🏔️ Zhangjiajie · Días 10–11</div>
+      <div class="day-row"><span class="dnb">D10</span><span class="drt">lun 19/04 · Tren · Tianmen Mountain</span></div>
+      <div class="day-row"><span class="dnb">D11</span><span class="drt">mar 20/04 · Wulingyuan · Yuanjiajie · Tianzi</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">🌇 Shanghái · Días 12–14</div>
+      <div class="day-row"><span class="dnb">D12</span><span class="drt">mié 21/04 · Vuelo · The Bund · Nanjing Road</span></div>
+      <div class="day-row"><span class="dnb">D13</span><span class="drt">jue 22/04 · Jing'an · Pudong · Yuyuan · Old Town</span></div>
+      <div class="day-row"><span class="dnb">D14</span><span class="drt">vie 23/04 · Tianzifang · Xintiandi · Concesión Francesa</span></div>
+    </div>
+    <div class="day-seg"><div class="day-seg-lbl">✈️ Vuelo · Día 15</div>
+      <div class="day-row"><span class="dnb">D15</span><span class="drt">sáb 24/04 · Shanghái → Madrid vía Munich</span></div>
     </div>
   </div>
 </div>
 
-<!-- DÍAS D1–D11 -->
-<div id="page-dias-d1" class="page"><div class="glass dph"><div class="dph-num">1</div><div class="ctag">🏯 Pekín</div><h3>Día 1</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d2" class="page"><div class="glass dph"><div class="dph-num">2</div><div class="ctag">🏯 Pekín</div><h3>Día 2</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d3" class="page"><div class="glass dph"><div class="dph-num">3</div><div class="ctag">🏯 Pekín</div><h3>Día 3</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d4" class="page"><div class="glass dph"><div class="dph-num">4</div><div class="ctag">🏺 Xi'an</div><h3>Día 4</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d5" class="page"><div class="glass dph"><div class="dph-num">5</div><div class="ctag">🏺 Xi'an</div><h3>Día 5</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d6" class="page"><div class="glass dph"><div class="dph-num">6</div><div class="ctag">🏔️ Zhangjiajie</div><h3>Día 6</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d7" class="page"><div class="glass dph"><div class="dph-num">7</div><div class="ctag">🏔️ Zhangjiajie</div><h3>Día 7</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d8" class="page"><div class="glass dph"><div class="dph-num">8</div><div class="ctag">🌆 Shanghái</div><h3>Día 8</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d9" class="page"><div class="glass dph"><div class="dph-num">9</div><div class="ctag">🌆 Shanghái</div><h3>Día 9</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d10" class="page"><div class="glass dph"><div class="dph-num">10</div><div class="ctag">🌆 Shanghái</div><h3>Día 10</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
-<div id="page-dias-d11" class="page"><div class="glass dph"><div class="dph-num">11</div><div class="ctag">🌆 Shanghái</div><h3>Día 11</h3><p>Contenido en construcción</p><div class="wip">🚧 Próximamente</div></div></div>
+<div id="page-dias-d1" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">sáb, 10/04</span><span class="dch-badge dch-badge-travel">✈️ Vuelo</span></div>
+    <div class="dch-title">Día 1 · Madrid → Pekín</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Salida desde Madrid a las 15h. Escala de 2 horas en Munich. Vuelo nocturno hacia Pekín.</div></div>
+  
+</div>
+
+<div id="page-dias-d2" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">dom, 11/04</span><span class="dch-badge dch-badge-city">🏯 Pekín</span></div>
+    <div class="dch-title">Día 2 · Llegada y aclimatación</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Llegada a las 12h. Día tranquilo de aclimatación al horario asiático.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Parque Beihai</div><div class="place-chip">Sichahai</div><div class="place-chip">Hutongs</div></div></div>
+</div>
+
+<div id="page-dias-d3" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">lun, 12/04</span><span class="dch-badge dch-badge-city">🏯 Pekín</span></div>
+    <div class="dch-title">Día 3 · Ciudad Prohibida y Tiananmen</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Día dedicado al corazón histórico de Pekín.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Ciudad Prohibida</div><div class="place-chip">Plaza de Tiananmen</div></div></div>
+</div>
+
+<div id="page-dias-d4" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">mar, 13/04</span><span class="dch-badge dch-badge-city">🏯 Pekín</span></div>
+    <div class="dch-title">Día 4 · Gran Muralla de Mutianyu</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Excursión a la Gran Muralla en el tramo de Mutianyu, uno de los mejor conservados y menos masificados.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Gran Muralla · Mutianyu</div></div></div>
+</div>
+
+<div id="page-dias-d5" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">mié, 14/04</span><span class="dch-badge dch-badge-travel">✈️ Vuelo</span></div>
+    <div class="dch-title">Día 5 · Pekín → Chengdu</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Vuelo a Chengdu. Tarde de llegada y primera toma de contacto con la ciudad.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Chunxi Road</div><div class="place-chip">Taikoo Li</div></div></div>
+</div>
+
+<div id="page-dias-d6" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">jue, 15/04</span><span class="dch-badge dch-badge-city">🐼 Chengdu</span></div>
+    <div class="dch-title">Día 6 · Gran Buda de Leshan</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Tren a Leshan. El Gran Buda es una escultura rupestre de 71m tallada en el siglo VIII y declarada Patrimonio de la Humanidad.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Gran Buda de Leshan</div></div></div>
+</div>
+
+<div id="page-dias-d7" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">vie, 16/04</span><span class="dch-badge dch-badge-city">🐼 Chengdu</span></div>
+    <div class="dch-title">Día 7 · Pandas y templos</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Mañana en la Reserva del Panda Gigante. Tarde por los templos y calles históricas de Chengdu.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Reserva del Panda Gigante</div><div class="place-chip">Templo Wuhou</div><div class="place-chip">Jinli Ancient Street</div><div class="place-chip">Kuanzhai Alley</div></div></div>
+</div>
+
+<div id="page-dias-d8" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">sáb, 17/04</span><span class="dch-badge dch-badge-train">🚄 Tren</span></div>
+    <div class="dch-title">Día 8 · Chengdu → Chongqing</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Tren a Chongqing. Tarde de paseo por Hongyadong. Espectáculo de drones por la noche.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Hongyadong</div><div class="place-chip">Espectáculo de drones</div></div></div>
+</div>
+
+<div id="page-dias-d9" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">dom, 18/04</span><span class="dch-badge dch-badge-city">🌆 Chongqing</span></div>
+    <div class="dch-title">Día 9 · Chongqing</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Día explorando los barrios y miradores de esta impresionante megaciudad montañosa.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Jiefangbei</div><div class="place-chip">Shibati</div><div class="place-chip">Ciqikou</div><div class="place-chip">Parque Eling</div></div></div>
+</div>
+
+<div id="page-dias-d10" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">lun, 19/04</span><span class="dch-badge dch-badge-train">🚄 Tren</span></div>
+    <div class="dch-title">Día 10 · Chongqing → Zhangjiajie</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Tren por la mañana a Zhangjiajie. Tarde en Tianmen Mountain.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Tianmen Mountain</div></div></div>
+</div>
+
+<div id="page-dias-d11" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">mar, 20/04</span><span class="dch-badge dch-badge-city">🏔️ Zhangjiajie</span></div>
+    <div class="dch-title">Día 11 · Área Escénica de Wulingyuan</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Día completo entre los pilares de arenisca que inspiraron las montañas flotantes de Avatar.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Yuanjiajie</div><div class="place-chip">Tianzi</div></div></div>
+</div>
+
+<div id="page-dias-d12" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">mié, 21/04</span><span class="dch-badge dch-badge-travel">✈️ Vuelo</span></div>
+    <div class="dch-title">Día 12 · Zhangjiajie → Shanghái</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Vuelo a Shanghái. Tarde de llegada y primeras impresiones de la ciudad.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">The Bund</div><div class="place-chip">Nanjing Road</div></div></div>
+</div>
+
+<div id="page-dias-d13" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">jue, 22/04</span><span class="dch-badge dch-badge-city">🌇 Shanghái</span></div>
+    <div class="dch-title">Día 13 · Shanghái clásico</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Día por los templos, jardines y el impresionante skyline de Pudong.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Templo Jing'an</div><div class="place-chip">Pudong</div><div class="place-chip">Yuyuan Garden</div><div class="place-chip">Old Town</div></div></div>
+</div>
+
+<div id="page-dias-d14" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">vie, 23/04</span><span class="dch-badge dch-badge-city">🌇 Shanghái</span></div>
+    <div class="dch-title">Día 14 · Shanghái moderno y colonial</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Último día completo. Barrios de diseño, la Concesión Francesa y el paseo del Bund al atardecer.</div></div>
+  <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Tianzifang</div><div class="place-chip">Xintiandi</div><div class="place-chip">Concesión Francesa</div><div class="place-chip">The Bund</div></div></div>
+</div>
+
+<div id="page-dias-d15" class="page">
+  <div class="glass">
+    <div class="dch-meta"><span class="dch-date">sáb, 24/04</span><span class="dch-badge dch-badge-travel">✈️ Vuelo</span></div>
+    <div class="dch-title">Día 15 · Shanghái → Madrid</div>
+  </div>
+  <div class="glass"><div class="dch-desc">Vuelo a las 11h. Escala de 2 horas en Munich. Llegada a Madrid a las 23h.</div></div>
+  
+</div>
 
 <!-- CERCA -->
 <div id="page-cerca" class="page">
@@ -430,6 +575,10 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
         <button class="nsb" onclick="tapDia('d9',this)">Día 9</button>
         <button class="nsb" onclick="tapDia('d10',this)">Día 10</button>
         <button class="nsb" onclick="tapDia('d11',this)">Día 11</button>
+        <button class="nsb" onclick="tapDia('d12',this)">Día 12</button>
+        <button class="nsb" onclick="tapDia('d13',this)">Día 13</button>
+        <button class="nsb" onclick="tapDia('d14',this)">Día 14</button>
+        <button class="nsb" onclick="tapDia('d15',this)">Día 15</button>
       </div>
     </div>
   </div>

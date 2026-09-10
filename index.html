@@ -206,13 +206,21 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 .place-grid{display:flex;flex-wrap:wrap;gap:.5rem;}
 .place-chip{background:rgba(79,172,254,.08);border:1px solid rgba(79,172,254,.2);color:var(--blue);border-radius:99px;padding:5px 14px;font-size:.82rem;font-weight:600;font-style:italic;}
 .sec-lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.7rem;}
+
+.level-tabs{display:flex;gap:8px;margin-bottom:.55rem;}
+.lbtn{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--mut);
+  padding:7px 10px;border-radius:10px;cursor:pointer;font-size:.8rem;font-weight:700;
+  transition:all .2s;text-align:center;}
+.lbtn.active{border-color:var(--char-red);background:rgba(232,68,90,.12);color:var(--char-red);}
+.level-desc{font-size:.78rem;color:var(--mut);margin-bottom:.9rem;padding:0 .1rem;}
+.rhd-picto{margin-top:8px;color:rgba(232,68,90,.45);display:flex;justify-content:center;align-items:center;}
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">CHINA 2027</div>
-  <span class="vtag">v0.10</span>
+  <span class="vtag">v0.12</span>
 </header>
 
 <main>
@@ -492,34 +500,18 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 
 <!-- RADICALES — DISEÑO RICO -->
 <div id="page-radicales" class="page">
-  <!-- Selector de radicales -->
-  <div class="rsel" id="rsel">
-    <button class="rsb active" onclick="showRad(0,this)">人</button>
-    <button class="rsb" onclick="showRad(1,this)">口</button>
-    <button class="rsb" onclick="showRad(2,this)">水</button>
-    <button class="rsb" onclick="showRad(3,this)">木</button>
-    <button class="rsb" onclick="showRad(4,this)">门</button>
-    <button class="rsb" onclick="showRad(5,this)">日</button>
-    <button class="rsb" onclick="showRad(6,this)">火</button>
-    <button class="rsb" onclick="showRad(7,this)">女</button>
-    <button class="rsb" onclick="showRad(8,this)">山</button>
-    <button class="rsb" onclick="showRad(9,this)">心</button>
-    <button class="rsb" onclick="showRad(10,this)">手</button>
-    <button class="rsb" onclick="showRad(11,this)">目</button>
-    <button class="rsb" onclick="showRad(12,this)">土</button>
-    <button class="rsb" onclick="showRad(13,this)">言</button>
-    <button class="rsb" onclick="showRad(14,this)">金</button>
-    <button class="rsb" onclick="showRad(15,this)">车</button>
-    <button class="rsb" onclick="showRad(16,this)">食</button>
-    <button class="rsb" onclick="showRad(17,this)">虫</button>
-    <button class="rsb" onclick="showRad(18,this)">雨</button>
-    <button class="rsb" onclick="showRad(19,this)">月</button>
+  <div class="level-tabs">
+    <button class="lbtn active" onclick="switchLevel(1,this)">Nivel 1</button>
+    <button class="lbtn" onclick="switchLevel(2,this)">Nivel 2</button>
+    <button class="lbtn" onclick="switchLevel(3,this)">Nivel 3</button>
+    <button class="lbtn" onclick="switchLevel(4,this)">Nivel 4</button>
+    <button class="lbtn" onclick="switchLevel(5,this)">Nivel 5</button>
   </div>
-  <!-- Header del radical -->
+  <div class="level-desc" id="level-desc"></div>
+  <div class="rsel" id="rsel"></div>
   <div class="glass" style="margin-bottom:1rem;">
     <div class="rad-hdr" id="rad-hdr"></div>
   </div>
-  <!-- Grid de caracteres derivados -->
   <div class="dchar-grid" id="dchar-grid"></div>
 </div>
 
@@ -638,59 +630,128 @@ function buildTable(){const eur=dir==='EUR_CNY';const amounts=eur?[1,5,10,20,50,
 
 /* ══ RADICALES — DATOS ══ */
 const RDATA=[
-  {char:'人',variant:'亻',py:'rén',name:'Persona',sem:'Seres humanos, relaciones sociales y pronombres',pic:'Silueta de una persona dando un paso',
-   d:[{ch:'人',py:'rén',es:'Persona'},{ch:'你',py:'nǐ',es:'Tú'},{ch:'他',py:'tā',es:'Él'},{ch:'她',py:'tā',es:'Ella'},{ch:'们',py:'men',es:'Plural'},{ch:'个',py:'gè',es:'Clasificador general'},{ch:'住',py:'zhù',es:'Vivir / Alojarse'},{ch:'做',py:'zuò',es:'Hacer'}]},
-  {char:'口',variant:null,py:'kǒu',name:'Boca',sem:'Comunicación, sonidos, sabores y apertura',pic:'Boca abierta vista de frente',
-   d:[{ch:'口',py:'kǒu',es:'Boca'},{ch:'吃',py:'chī',es:'Comer'},{ch:'喝',py:'hē',es:'Beber'},{ch:'说',py:'shuō',es:'Hablar'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'叫',py:'jiào',es:'Llamarse'},{ch:'唱',py:'chàng',es:'Cantar'},{ch:'号',py:'hào',es:'Número'}]},
-  {char:'水',variant:'氵',py:'shuǐ',name:'Agua',sem:'Líquidos, ríos, humedad y limpieza',pic:'Corriente de agua con ondas laterales',
-   d:[{ch:'水',py:'shuǐ',es:'Agua'},{ch:'海',py:'hǎi',es:'Mar'},{ch:'河',py:'hé',es:'Río'},{ch:'游',py:'yóu',es:'Nadar'},{ch:'汤',py:'tāng',es:'Sopa'},{ch:'酒',py:'jiǔ',es:'Alcohol'},{ch:'洗',py:'xǐ',es:'Lavar'},{ch:'泡',py:'pào',es:'Remojar'}]},
-  {char:'木',variant:null,py:'mù',name:'Árbol / Madera',sem:'Árboles, plantas y objetos de madera',pic:'Árbol con ramas arriba y raíces abajo',
-   d:[{ch:'木',py:'mù',es:'Madera'},{ch:'树',py:'shù',es:'Árbol'},{ch:'桌',py:'zhuō',es:'Mesa'},{ch:'椅',py:'yǐ',es:'Silla'},{ch:'林',py:'lín',es:'Bosque'},{ch:'森',py:'sēn',es:'Selva'},{ch:'床',py:'chuáng',es:'Cama'},{ch:'柜',py:'guì',es:'Armario'}]},
-  {char:'门',variant:null,py:'mén',name:'Puerta',sem:'Puertas, entradas y espacios acotados',pic:'Dos hojas de una puerta batiente',
-   d:[{ch:'门',py:'mén',es:'Puerta'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'闻',py:'wén',es:'Oler / Escuchar'},{ch:'间',py:'jiān',es:'Espacio / Entre'},{ch:'闲',py:'xián',es:'Ocioso'},{ch:'闹',py:'nào',es:'Ruidoso'},{ch:'闷',py:'mēn',es:'Sofocante'},{ch:'闯',py:'chuǎng',es:'Irrumpir'}]},
-  {char:'日',variant:null,py:'rì',name:'Sol / Día',sem:'Luz solar, tiempo y períodos del día',pic:'Sol con un punto central brillante',
-   d:[{ch:'日',py:'rì',es:'Día / Sol'},{ch:'明',py:'míng',es:'Brillante'},{ch:'时',py:'shí',es:'Tiempo / Hora'},{ch:'早',py:'zǎo',es:'Mañana temprana'},{ch:'晚',py:'wǎn',es:'Noche / Tarde'},{ch:'晴',py:'qíng',es:'Soleado'},{ch:'春',py:'chūn',es:'Primavera'},{ch:'暖',py:'nuǎn',es:'Cálido'}]},
-  {char:'火',variant:'灬',py:'huǒ',name:'Fuego',sem:'Fuego, calor, cocción y energía',pic:'Llamas ascendentes con chispas',
-   d:[{ch:'火',py:'huǒ',es:'Fuego'},{ch:'热',py:'rè',es:'Caliente'},{ch:'烧',py:'shāo',es:'Quemar'},{ch:'炒',py:'chǎo',es:'Saltear'},{ch:'灯',py:'dēng',es:'Lámpara'},{ch:'烤',py:'kǎo',es:'Asar'},{ch:'炸',py:'zhà',es:'Freír'},{ch:'焰',py:'yàn',es:'Llama'}]},
-  {char:'女',variant:null,py:'nǚ',name:'Mujer',sem:'Mujeres, familia femenina y relaciones',pic:'Figura de mujer con brazos cruzados arrodillada',
-   d:[{ch:'女',py:'nǚ',es:'Mujer'},{ch:'妈',py:'mā',es:'Mamá'},{ch:'姐',py:'jiě',es:'Hermana mayor'},{ch:'妹',py:'mèi',es:'Hermana menor'},{ch:'她',py:'tā',es:'Ella'},{ch:'好',py:'hǎo',es:'Bueno'},{ch:'姓',py:'xìng',es:'Apellido'},{ch:'婚',py:'hūn',es:'Matrimonio'}]},
-  {char:'山',variant:null,py:'shān',name:'Montaña',sem:'Montañas, islas y elevaciones del terreno',pic:'Tres picos de montañas vistos de frente',
-   d:[{ch:'山',py:'shān',es:'Montaña'},{ch:'岛',py:'dǎo',es:'Isla'},{ch:'岩',py:'yán',es:'Roca / Peña'},{ch:'峰',py:'fēng',es:'Pico / Cumbre'},{ch:'岸',py:'àn',es:'Orilla / Costa'},{ch:'岭',py:'lǐng',es:'Cordillera'},{ch:'崖',py:'yá',es:'Acantilado'},{ch:'峡',py:'xiá',es:'Desfiladero / Cañón'}]},
-  {char:'心',variant:'忄',py:'xīn',name:'Corazón',sem:'Emociones, sentimientos y estados de ánimo',pic:'Corazón humano con tres cavidades',
-   d:[{ch:'心',py:'xīn',es:'Corazón'},{ch:'想',py:'xiǎng',es:'Pensar / Querer'},{ch:'爱',py:'ài',es:'Amor / Amar'},{ch:'忙',py:'máng',es:'Ocupado'},{ch:'快',py:'kuài',es:'Rápido / Contento'},{ch:'怕',py:'pà',es:'Tener miedo'},{ch:'忘',py:'wàng',es:'Olvidar'},{ch:'情',py:'qíng',es:'Sentimiento / Emoción'}]},
-  {char:'手',variant:'扌',py:'shǒu',name:'Mano',sem:'Acciones manuales, tocar y manipular objetos',pic:'Mano con cinco dedos extendidos',
-   d:[{ch:'手',py:'shǒu',es:'Mano'},{ch:'打',py:'dǎ',es:'Pegar / Jugar'},{ch:'拿',py:'ná',es:'Coger / Tomar'},{ch:'推',py:'tuī',es:'Empujar'},{ch:'拉',py:'lā',es:'Tirar / Jalar'},{ch:'找',py:'zhǎo',es:'Buscar'},{ch:'接',py:'jiē',es:'Recibir / Recoger'},{ch:'握',py:'wò',es:'Agarrar'}]},
-  {char:'目',variant:null,py:'mù',name:'Ojo',sem:'Vista, observación y percepción visual',pic:'Ojo humano rotado verticalmente con iris',
-   d:[{ch:'目',py:'mù',es:'Ojo / Objetivo'},{ch:'看',py:'kàn',es:'Ver / Mirar'},{ch:'眼',py:'yǎn',es:'Ojo'},{ch:'睡',py:'shuì',es:'Dormir'},{ch:'眉',py:'méi',es:'Ceja'},{ch:'盲',py:'máng',es:'Ciego'},{ch:'眺',py:'tiào',es:'Contemplar el horizonte'},{ch:'瞪',py:'dèng',es:'Mirar fijamente'}]},
-  {char:'土',variant:null,py:'tǔ',name:'Tierra',sem:'Tierra, suelo y estructuras construidas',pic:'Terrón de tierra emergiendo del suelo',
-   d:[{ch:'土',py:'tǔ',es:'Tierra / Suelo'},{ch:'地',py:'dì',es:'Lugar / Tierra'},{ch:'坐',py:'zuò',es:'Sentarse'},{ch:'城',py:'chéng',es:'Ciudad / Muralla'},{ch:'块',py:'kuài',es:'Trozo / Bloque'},{ch:'坏',py:'huài',es:'Malo / Roto'},{ch:'场',py:'chǎng',es:'Campo / Lugar'},{ch:'墙',py:'qiáng',es:'Pared / Muro'}]},
-  {char:'言',variant:'讠',py:'yán',name:'Hablar',sem:'Palabras, idiomas y comunicación verbal',pic:'Boca con ondas de sonido saliendo hacia arriba',
-   d:[{ch:'说',py:'shuō',es:'Hablar / Decir'},{ch:'话',py:'huà',es:'Palabra / Habla'},{ch:'请',py:'qǐng',es:'Por favor / Invitar'},{ch:'谢',py:'xiè',es:'Agradecer'},{ch:'语',py:'yǔ',es:'Idioma / Lengua'},{ch:'读',py:'dú',es:'Leer'},{ch:'谁',py:'shéi',es:'Quién'},{ch:'词',py:'cí',es:'Palabra / Vocabulario'}]},
-  {char:'金',variant:'钅',py:'jīn',name:'Metal / Oro',sem:'Metales, monedas y objetos metálicos',pic:'Pepitas de metal enterradas bajo la tierra',
-   d:[{ch:'金',py:'jīn',es:'Oro / Metal'},{ch:'钱',py:'qián',es:'Dinero'},{ch:'银',py:'yín',es:'Plata'},{ch:'铁',py:'tiě',es:'Hierro'},{ch:'钟',py:'zhōng',es:'Reloj / Campana'},{ch:'铃',py:'líng',es:'Timbre'},{ch:'针',py:'zhēn',es:'Aguja'},{ch:'锁',py:'suǒ',es:'Cerradura'}]},
-  {char:'车',variant:null,py:'chē',name:'Vehículo',sem:'Vehículos, transporte rodado y movimiento',pic:'Carro de guerra visto desde arriba',
-   d:[{ch:'车',py:'chē',es:'Vehículo / Coche'},{ch:'轮',py:'lún',es:'Rueda'},{ch:'辆',py:'liàng',es:'Clasificador de vehículos'},{ch:'轻',py:'qīng',es:'Ligero'},{ch:'转',py:'zhuǎn',es:'Girar / Cambiar'},{ch:'较',py:'jiào',es:'Comparar / Bastante'},{ch:'军',py:'jūn',es:'Ejército'},{ch:'辈',py:'bèi',es:'Generación'}]},
-  {char:'食',variant:'饣',py:'shí',name:'Comida',sem:'Alimentos, comer y restaurantes',pic:'Cuenco de arroz tapado listo para comer',
-   d:[{ch:'食',py:'shí',es:'Comer / Comida'},{ch:'饭',py:'fàn',es:'Arroz / Comida'},{ch:'饿',py:'è',es:'Tener hambre'},{ch:'饮',py:'yǐn',es:'Beber'},{ch:'饺',py:'jiǎo',es:'Empanadilla china'},{ch:'饼',py:'bǐng',es:'Torta / Pan plano'},{ch:'馆',py:'guǎn',es:'Restaurante / Local'},{ch:'饱',py:'bǎo',es:'Estar lleno / Saciado'}]},
-  {char:'虫',variant:null,py:'chóng',name:'Insecto',sem:'Insectos, reptiles y animales pequeños',pic:'Serpiente enrollada con la cabeza elevada',
-   d:[{ch:'虫',py:'chóng',es:'Insecto / Bicho'},{ch:'蛇',py:'shé',es:'Serpiente'},{ch:'蜂',py:'fēng',es:'Abeja / Avispa'},{ch:'蜜',py:'mì',es:'Miel'},{ch:'蝶',py:'dié',es:'Mariposa'},{ch:'蛙',py:'wā',es:'Rana'},{ch:'蚊',py:'wén',es:'Mosquito'},{ch:'螺',py:'luó',es:'Caracol'}]},
-  {char:'雨',variant:null,py:'yǔ',name:'Lluvia',sem:'Precipitaciones y fenómenos atmosféricos',pic:'Nube con gotas de lluvia cayendo',
-   d:[{ch:'雨',py:'yǔ',es:'Lluvia'},{ch:'雪',py:'xuě',es:'Nieve'},{ch:'雷',py:'léi',es:'Trueno'},{ch:'雾',py:'wù',es:'Niebla / Bruma'},{ch:'霜',py:'shuāng',es:'Escarcha'},{ch:'露',py:'lù',es:'Rocío'},{ch:'霞',py:'xiá',es:'Arrebol / Nubes rosas'},{ch:'零',py:'líng',es:'Cero / Gotas de lluvia'}]},
-  {char:'月',variant:'肉',py:'yuè',name:'Luna / Mes',sem:'Luna, meses del año y partes del cuerpo',pic:'Luna creciente con dos trazos interiores',
-   d:[{ch:'月',py:'yuè',es:'Luna / Mes'},{ch:'明',py:'míng',es:'Brillante / Claro'},{ch:'朋',py:'péng',es:'Amigo'},{ch:'期',py:'qī',es:'Período / Semana'},{ch:'腿',py:'tuǐ',es:'Pierna'},{ch:'脸',py:'liǎn',es:'Cara / Rostro'},{ch:'胸',py:'xiōng',es:'Pecho'},{ch:'肥',py:'féi',es:'Gordo / Graso'}]},
+  {char:'人',variant:'亻',py:'rén',name:'Persona',sem:'Seres humanos, relaciones sociales y pronombres',pic:'Silueta de persona dando un paso',d:[{ch:'人',py:'rén',es:'Persona'},{ch:'你',py:'nǐ',es:'Tú'},{ch:'他',py:'tā',es:'Él'},{ch:'她',py:'tā',es:'Ella'},{ch:'们',py:'men',es:'Plural'},{ch:'个',py:'gè',es:'Clasificador'},{ch:'住',py:'zhù',es:'Vivir'},{ch:'做',py:'zuò',es:'Hacer'},{ch:'位',py:'wèi',es:'Posición'},{ch:'从',py:'cóng',es:'Seguir'},{ch:'休',py:'xiū',es:'Descansar'},{ch:'众',py:'zhòng',es:'Multitud'}]},
+  {char:'日',variant:null,py:'rì',name:'Sol / Día',sem:'Luz solar, tiempo y períodos del día',pic:'Sol con punto central brillante',d:[{ch:'日',py:'rì',es:'Día/Sol'},{ch:'明',py:'míng',es:'Brillante'},{ch:'时',py:'shí',es:'Tiempo/Hora'},{ch:'早',py:'zǎo',es:'Mañana'},{ch:'晚',py:'wǎn',es:'Noche'},{ch:'晴',py:'qíng',es:'Soleado'},{ch:'春',py:'chūn',es:'Primavera'},{ch:'暖',py:'nuǎn',es:'Cálido'},{ch:'星',py:'xīng',es:'Estrella'},{ch:'昨',py:'zuó',es:'Ayer'},{ch:'景',py:'jǐng',es:'Paisaje'},{ch:'晒',py:'shài',es:'Asolear'}]},
+  {char:'月',variant:'肉',py:'yuè',name:'Luna / Mes',sem:'Luna, meses y partes del cuerpo',pic:'Luna creciente con dos trazos internos',d:[{ch:'月',py:'yuè',es:'Luna/Mes'},{ch:'明',py:'míng',es:'Brillante'},{ch:'朋',py:'péng',es:'Amigo'},{ch:'期',py:'qī',es:'Período'},{ch:'腿',py:'tuǐ',es:'Pierna'},{ch:'脸',py:'liǎn',es:'Cara'},{ch:'胸',py:'xiōng',es:'Pecho'},{ch:'脑',py:'nǎo',es:'Cerebro'},{ch:'胃',py:'wèi',es:'Estómago'},{ch:'背',py:'bèi',es:'Espalda'},{ch:'肺',py:'fèi',es:'Pulmón'},{ch:'肥',py:'féi',es:'Gordo'}]},
+  {char:'山',variant:null,py:'shān',name:'Montaña',sem:'Montañas, islas y elevaciones del terreno',pic:'Tres picos de montaña vistos de frente',d:[{ch:'山',py:'shān',es:'Montaña'},{ch:'岛',py:'dǎo',es:'Isla'},{ch:'岩',py:'yán',es:'Roca/Peña'},{ch:'峰',py:'fēng',es:'Pico/Cumbre'},{ch:'岸',py:'àn',es:'Orilla/Costa'},{ch:'岭',py:'lǐng',es:'Cordillera'},{ch:'崖',py:'yá',es:'Acantilado'},{ch:'峡',py:'xiá',es:'Desfiladero'},{ch:'岗',py:'gǎng',es:'Puesto/Colina'},{ch:'岳',py:'yuè',es:'Montaña sagrada'},{ch:'崩',py:'bēng',es:'Derrumbe'},{ch:'巍',py:'wēi',es:'Majestuoso'}]},
+  {char:'水',variant:'氵',py:'shuǐ',name:'Agua',sem:'Líquidos, ríos, humedad y limpieza',pic:'Corriente de agua con ondas laterales',d:[{ch:'水',py:'shuǐ',es:'Agua'},{ch:'海',py:'hǎi',es:'Mar'},{ch:'河',py:'hé',es:'Río'},{ch:'游',py:'yóu',es:'Nadar'},{ch:'汤',py:'tāng',es:'Sopa'},{ch:'酒',py:'jiǔ',es:'Alcohol'},{ch:'洗',py:'xǐ',es:'Lavar'},{ch:'泡',py:'pào',es:'Remojar'},{ch:'湖',py:'hú',es:'Lago'},{ch:'泳',py:'yǒng',es:'Natación'},{ch:'汽',py:'qì',es:'Vapor/Gas'},{ch:'渴',py:'kě',es:'Tener sed'}]},
+  {char:'火',variant:'灬',py:'huǒ',name:'Fuego',sem:'Fuego, calor, cocción y energía',pic:'Llamas ascendentes con chispas',d:[{ch:'火',py:'huǒ',es:'Fuego'},{ch:'热',py:'rè',es:'Caliente'},{ch:'烧',py:'shāo',es:'Quemar'},{ch:'炒',py:'chǎo',es:'Saltear'},{ch:'灯',py:'dēng',es:'Lámpara'},{ch:'烤',py:'kǎo',es:'Asar'},{ch:'炸',py:'zhà',es:'Freír'},{ch:'焰',py:'yàn',es:'Llama'},{ch:'炉',py:'lú',es:'Horno'},{ch:'烟',py:'yān',es:'Humo'},{ch:'煮',py:'zhǔ',es:'Hervir'},{ch:'炮',py:'pào',es:'Cañón/Petardo'}]},
+  {char:'木',variant:null,py:'mù',name:'Árbol / Madera',sem:'Árboles, plantas y objetos de madera',pic:'Árbol con ramas arriba y raíces abajo',d:[{ch:'木',py:'mù',es:'Madera'},{ch:'树',py:'shù',es:'Árbol'},{ch:'桌',py:'zhuō',es:'Mesa'},{ch:'椅',py:'yǐ',es:'Silla'},{ch:'林',py:'lín',es:'Bosque'},{ch:'森',py:'sēn',es:'Selva'},{ch:'床',py:'chuáng',es:'Cama'},{ch:'柜',py:'guì',es:'Armario'},{ch:'板',py:'bǎn',es:'Tabla'},{ch:'桥',py:'qiáo',es:'Puente'},{ch:'根',py:'gēn',es:'Raíz'},{ch:'枝',py:'zhī',es:'Rama'}]},
+  {char:'口',variant:null,py:'kǒu',name:'Boca',sem:'Comunicación, sonidos, sabores y apertura',pic:'Boca abierta vista de frente',d:[{ch:'口',py:'kǒu',es:'Boca'},{ch:'吃',py:'chī',es:'Comer'},{ch:'喝',py:'hē',es:'Beber'},{ch:'说',py:'shuō',es:'Hablar'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'叫',py:'jiào',es:'Llamarse'},{ch:'唱',py:'chàng',es:'Cantar'},{ch:'号',py:'hào',es:'Número'},{ch:'吧',py:'ba',es:'Partícula eh'},{ch:'呢',py:'ne',es:'Partícula verdad'},{ch:'味',py:'wèi',es:'Sabor'},{ch:'吵',py:'chǎo',es:'Discutir'}]},
+  {char:'目',variant:null,py:'mù',name:'Ojo',sem:'Vista, observación y percepción visual',pic:'Ojo humano rotado verticalmente',d:[{ch:'目',py:'mù',es:'Ojo/Objetivo'},{ch:'看',py:'kàn',es:'Ver/Mirar'},{ch:'眼',py:'yǎn',es:'Ojo'},{ch:'睡',py:'shuì',es:'Dormir'},{ch:'眉',py:'méi',es:'Ceja'},{ch:'盲',py:'máng',es:'Ciego'},{ch:'眺',py:'tiào',es:'Contemplar'},{ch:'瞪',py:'dèng',es:'Mirar fijamente'},{ch:'睁',py:'zhēng',es:'Abrir los ojos'},{ch:'眨',py:'zhǎ',es:'Parpadear'},{ch:'盯',py:'dīng',es:'Mirar fijo'},{ch:'瞧',py:'qiáo',es:'Echar un vistazo'}]},
+  {char:'耳',variant:null,py:'ěr',name:'Oreja',sem:'Audición, escucha y comunicación sonora',pic:'Pabellón auditivo visto de frente',d:[{ch:'耳',py:'ěr',es:'Oreja'},{ch:'聪',py:'cōng',es:'Inteligente/Listo'},{ch:'聊',py:'liáo',es:'Charlar'},{ch:'联',py:'lián',es:'Unir/Conectar'},{ch:'聚',py:'jù',es:'Reunir'},{ch:'职',py:'zhí',es:'Cargo/Puesto'},{ch:'聋',py:'lóng',es:'Sordo'},{ch:'耸',py:'sǒng',es:'Alzar'},{ch:'耻',py:'chǐ',es:'Vergüenza'},{ch:'耐',py:'nài',es:'Aguantar'},{ch:'取',py:'qǔ',es:'Tomar'},{ch:'闻',py:'wén',es:'Oler/Escuchar'}]},
+  {char:'手',variant:'扌',py:'shǒu',name:'Mano',sem:'Acciones manuales, tocar y manipular objetos',pic:'Mano con cinco dedos extendidos',d:[{ch:'手',py:'shǒu',es:'Mano'},{ch:'打',py:'dǎ',es:'Pegar/Jugar'},{ch:'拿',py:'ná',es:'Coger/Tomar'},{ch:'推',py:'tuī',es:'Empujar'},{ch:'拉',py:'lā',es:'Tirar/Jalar'},{ch:'找',py:'zhǎo',es:'Buscar'},{ch:'接',py:'jiē',es:'Recibir'},{ch:'握',py:'wò',es:'Agarrar'},{ch:'抓',py:'zhuā',es:'Atrapar'},{ch:'扔',py:'rēng',es:'Lanzar'},{ch:'抬',py:'tái',es:'Levantar'},{ch:'拍',py:'pāi',es:'Aplaudir'}]},
+  {char:'心',variant:'忄',py:'xīn',name:'Corazón',sem:'Emociones, sentimientos y estados de ánimo',pic:'Corazón humano con tres cavidades',d:[{ch:'心',py:'xīn',es:'Corazón'},{ch:'想',py:'xiǎng',es:'Pensar/Querer'},{ch:'爱',py:'ài',es:'Amor'},{ch:'忙',py:'máng',es:'Ocupado'},{ch:'快',py:'kuài',es:'Rápido/Contento'},{ch:'怕',py:'pà',es:'Tener miedo'},{ch:'忘',py:'wàng',es:'Olvidar'},{ch:'情',py:'qíng',es:'Sentimiento'},{ch:'慢',py:'màn',es:'Lento'},{ch:'感',py:'gǎn',es:'Sentir'},{ch:'恨',py:'hèn',es:'Odiar'},{ch:'恐',py:'kǒng',es:'Temer'}]},
+  {char:'女',variant:null,py:'nǚ',name:'Mujer',sem:'Mujeres, familia femenina y relaciones',pic:'Figura de mujer arrodillada con brazos cruzados',d:[{ch:'女',py:'nǚ',es:'Mujer'},{ch:'妈',py:'mā',es:'Mamá'},{ch:'姐',py:'jiě',es:'Hermana mayor'},{ch:'妹',py:'mèi',es:'Hermana menor'},{ch:'她',py:'tā',es:'Ella'},{ch:'好',py:'hǎo',es:'Bueno'},{ch:'姓',py:'xìng',es:'Apellido'},{ch:'婚',py:'hūn',es:'Matrimonio'},{ch:'奶',py:'nǎi',es:'Abuela/Leche'},{ch:'妻',py:'qī',es:'Esposa'},{ch:'嫁',py:'jià',es:'Casarse-ella'},{ch:'姑',py:'gū',es:'Tía paterna'}]},
+  {char:'子',variant:null,py:'zǐ',name:'Niño / Hijo',sem:'Niños, descendencia y seres pequeños',pic:'Bebé con los brazos extendidos hacia arriba',d:[{ch:'子',py:'zǐ',es:'Niño/Hijo'},{ch:'学',py:'xué',es:'Estudiar'},{ch:'字',py:'zì',es:'Carácter/Letra'},{ch:'孩',py:'hái',es:'Niño'},{ch:'孙',py:'sūn',es:'Nieto'},{ch:'存',py:'cún',es:'Existir'},{ch:'孤',py:'gū',es:'Huérfano/Solo'},{ch:'育',py:'yù',es:'Educar'},{ch:'孕',py:'yùn',es:'Embarazada'},{ch:'季',py:'jì',es:'Estación del año'},{ch:'孝',py:'xiào',es:'Piedad filial'},{ch:'孟',py:'mèng',es:'Primero/Nombre'}]},
+  {char:'土',variant:null,py:'tǔ',name:'Tierra',sem:'Tierra, suelo y estructuras construidas',pic:'Terrón de tierra emergiendo del suelo',d:[{ch:'土',py:'tǔ',es:'Tierra/Suelo'},{ch:'地',py:'dì',es:'Lugar/Tierra'},{ch:'坐',py:'zuò',es:'Sentarse'},{ch:'城',py:'chéng',es:'Ciudad/Muralla'},{ch:'块',py:'kuài',es:'Trozo/Bloque'},{ch:'坏',py:'huài',es:'Malo/Roto'},{ch:'场',py:'chǎng',es:'Campo/Lugar'},{ch:'墙',py:'qiáng',es:'Pared/Muro'},{ch:'基',py:'jī',es:'Base/Fundamento'},{ch:'培',py:'péi',es:'Cultivar/Formar'},{ch:'堆',py:'duī',es:'Montón'},{ch:'境',py:'jìng',es:'Territorio/Frontera'}]},
+  {char:'足',variant:null,py:'zú',name:'Pie',sem:'Pies, caminar y distancias recorridas',pic:'Pierna con tobillo y planta del pie',d:[{ch:'足',py:'zú',es:'Pie/Suficiente'},{ch:'跑',py:'pǎo',es:'Correr'},{ch:'跳',py:'tiào',es:'Saltar'},{ch:'路',py:'lù',es:'Camino'},{ch:'跟',py:'gēn',es:'Seguir/Con'},{ch:'踢',py:'tī',es:'Patear'},{ch:'踏',py:'tà',es:'Pisar'},{ch:'跪',py:'guì',es:'Arrodillarse'},{ch:'距',py:'jù',es:'Distancia'},{ch:'跨',py:'kuà',es:'Cruzar'},{ch:'踩',py:'cǎi',es:'Pisotear'},{ch:'蹦',py:'bèng',es:'Brincar'}]},
+  {char:'雨',variant:null,py:'yǔ',name:'Lluvia',sem:'Precipitaciones y fenómenos atmosféricos',pic:'Nube con gotas de lluvia cayendo',d:[{ch:'雨',py:'yǔ',es:'Lluvia'},{ch:'雪',py:'xuě',es:'Nieve'},{ch:'雷',py:'léi',es:'Trueno'},{ch:'雾',py:'wù',es:'Niebla/Bruma'},{ch:'霜',py:'shuāng',es:'Escarcha'},{ch:'露',py:'lù',es:'Rocío'},{ch:'霞',py:'xiá',es:'Arrebol'},{ch:'零',py:'líng',es:'Cero/Gotas'},{ch:'需',py:'xū',es:'Necesitar'},{ch:'霉',py:'méi',es:'Moho/Mala suerte'},{ch:'震',py:'zhèn',es:'Temblar'},{ch:'霸',py:'bà',es:'Hegemonía'}]},
+  {char:'门',variant:null,py:'mén',name:'Puerta',sem:'Puertas, entradas y espacios acotados',pic:'Dos hojas de una puerta batiente',d:[{ch:'门',py:'mén',es:'Puerta'},{ch:'问',py:'wèn',es:'Preguntar'},{ch:'闻',py:'wén',es:'Oler/Escuchar'},{ch:'间',py:'jiān',es:'Espacio/Entre'},{ch:'闲',py:'xián',es:'Ocioso'},{ch:'闹',py:'nào',es:'Ruidoso'},{ch:'闷',py:'mēn',es:'Sofocante'},{ch:'闯',py:'chuǎng',es:'Irrumpir'},{ch:'闭',py:'bì',es:'Cerrar'},{ch:'阔',py:'kuò',es:'Ancho'},{ch:'阀',py:'fá',es:'Válvula'},{ch:'闸',py:'zhá',es:'Compuerta'}]},
+  {char:'草',variant:'艹',py:'cǎo',name:'Hierba / Planta',sem:'Plantas, hierbas, vegetación y medicinas',pic:'Tres brotes de hierba germinando',d:[{ch:'草',py:'cǎo',es:'Hierba'},{ch:'花',py:'huā',es:'Flor'},{ch:'茶',py:'chá',es:'Té'},{ch:'药',py:'yào',es:'Medicina'},{ch:'菜',py:'cài',es:'Verdura'},{ch:'苦',py:'kǔ',es:'Amargo'},{ch:'荷',py:'hé',es:'Loto'},{ch:'蒜',py:'suàn',es:'Ajo'},{ch:'葱',py:'cōng',es:'Cebolleta'},{ch:'芳',py:'fāng',es:'Fragante'},{ch:'蔬',py:'shū',es:'Vegetal'},{ch:'莲',py:'lián',es:'Lotus'}]},
+  {char:'石',variant:null,py:'shí',name:'Piedra',sem:'Piedras, rocas y minerales sólidos',pic:'Peña cayendo de un acantilado',d:[{ch:'石',py:'shí',es:'Piedra'},{ch:'砂',py:'shā',es:'Arena'},{ch:'硬',py:'yìng',es:'Duro'},{ch:'破',py:'pò',es:'Romper'},{ch:'研',py:'yán',es:'Investigar'},{ch:'矿',py:'kuàng',es:'Mineral'},{ch:'碗',py:'wǎn',es:'Cuenco'},{ch:'磁',py:'cí',es:'Magnético'},{ch:'确',py:'què',es:'Cierto/Seguro'},{ch:'碎',py:'suì',es:'Roto/Fragmentado'},{ch:'础',py:'chǔ',es:'Cimiento'},{ch:'砌',py:'qì',es:'Enladrillar'}]},
+  {char:'田',variant:null,py:'tián',name:'Campo',sem:'Campos de cultivo y tierra trabajada',pic:'Parcela cultivada dividida en cuatro cuadrantes',d:[{ch:'田',py:'tián',es:'Campo/Arrozal'},{ch:'由',py:'yóu',es:'Desde/Por'},{ch:'男',py:'nán',es:'Hombre'},{ch:'思',py:'sī',es:'Pensar'},{ch:'界',py:'jiè',es:'Límite/Mundo'},{ch:'留',py:'liú',es:'Quedarse'},{ch:'甲',py:'jiǎ',es:'Primero/Caparazón'},{ch:'畜',py:'xù',es:'Ganado'},{ch:'番',py:'fān',es:'Vez/Turno'},{ch:'富',py:'fù',es:'Rico'},{ch:'略',py:'lüè',es:'Estrategia'},{ch:'电',py:'diàn',es:'Electricidad'}]},
+  {char:'鱼',variant:null,py:'yú',name:'Pez',sem:'Peces, mariscos y animales acuáticos',pic:'Silueta de pez con escamas y aleta',d:[{ch:'鱼',py:'yú',es:'Pez'},{ch:'鲜',py:'xiān',es:'Fresco'},{ch:'鲤',py:'lǐ',es:'Carpa'},{ch:'鲸',py:'jīng',es:'Ballena'},{ch:'鲫',py:'jì',es:'Cruciana'},{ch:'鳄',py:'è',es:'Cocodrilo'},{ch:'鳞',py:'lín',es:'Escama'},{ch:'鱿',py:'yóu',es:'Calamar'},{ch:'鲍',py:'bào',es:'Abulón'},{ch:'鳕',py:'xuě',es:'Bacalao'},{ch:'鲶',py:'nián',es:'Siluro'},{ch:'鳝',py:'shàn',es:'Anguila'}]},
+  {char:'鸟',variant:null,py:'niǎo',name:'Pájaro',sem:'Aves y animales con plumas',pic:'Pájaro de perfil con cola y pico',d:[{ch:'鸟',py:'niǎo',es:'Pájaro'},{ch:'鸡',py:'jī',es:'Pollo/Gallina'},{ch:'鸭',py:'yā',es:'Pato'},{ch:'鹅',py:'é',es:'Ganso'},{ch:'鸽',py:'gē',es:'Paloma'},{ch:'鹤',py:'hè',es:'Grulla'},{ch:'鸦',py:'yā',es:'Cuervo'},{ch:'鹰',py:'yīng',es:'Águila'},{ch:'鸥',py:'ōu',es:'Gaviota'},{ch:'鸳',py:'yuān',es:'Pato mandarín'},{ch:'鸣',py:'míng',es:'Cantar-ave'},{ch:'鹦',py:'yīng',es:'Loro'}]},
+  {char:'虫',variant:null,py:'chóng',name:'Insecto',sem:'Insectos, reptiles y animales pequeños',pic:'Serpiente enrollada con la cabeza elevada',d:[{ch:'虫',py:'chóng',es:'Insecto/Bicho'},{ch:'蛇',py:'shé',es:'Serpiente'},{ch:'蜂',py:'fēng',es:'Abeja/Avispa'},{ch:'蜜',py:'mì',es:'Miel'},{ch:'蝶',py:'dié',es:'Mariposa'},{ch:'蛙',py:'wā',es:'Rana'},{ch:'蚊',py:'wén',es:'Mosquito'},{ch:'螺',py:'luó',es:'Caracol'},{ch:'蜘',py:'zhī',es:'Araña'},{ch:'蟹',py:'xiè',es:'Cangrejo'},{ch:'蝉',py:'chán',es:'Cigarra'},{ch:'蛾',py:'é',es:'Polilla'}]},
+  {char:'走',variant:null,py:'zǒu',name:'Caminar',sem:'Movimiento, desplazamiento y velocidad',pic:'Persona en movimiento con piernas en zancada',d:[{ch:'走',py:'zǒu',es:'Caminar'},{ch:'起',py:'qǐ',es:'Levantarse'},{ch:'越',py:'yuè',es:'Cruzar/Superar'},{ch:'趣',py:'qù',es:'Interés/Gusto'},{ch:'超',py:'chāo',es:'Superar'},{ch:'赶',py:'gǎn',es:'Apresurarse'},{ch:'赴',py:'fù',es:'Ir hacia'},{ch:'趋',py:'qū',es:'Dirigirse'},{ch:'趟',py:'tàng',es:'Una ida'},{ch:'趁',py:'chèn',es:'Aprovechar'},{ch:'赵',py:'zhào',es:'Apellido Zhao'},{ch:'趼',py:'jiǎn',es:'Callo'}]},
+  {char:'言',variant:'讠',py:'yán',name:'Hablar',sem:'Palabras, idiomas y comunicación verbal',pic:'Boca con ondas de sonido saliendo hacia arriba',d:[{ch:'说',py:'shuō',es:'Hablar/Decir'},{ch:'话',py:'huà',es:'Palabra/Habla'},{ch:'请',py:'qǐng',es:'Por favor/Invitar'},{ch:'谢',py:'xiè',es:'Agradecer'},{ch:'语',py:'yǔ',es:'Idioma/Lengua'},{ch:'读',py:'dú',es:'Leer'},{ch:'谁',py:'shéi',es:'Quién'},{ch:'词',py:'cí',es:'Vocabulario'},{ch:'讲',py:'jiǎng',es:'Explicar'},{ch:'议',py:'yì',es:'Discutir'},{ch:'论',py:'lùn',es:'Argumentar'},{ch:'误',py:'wù',es:'Error'}]},
+  {char:'食',variant:'饣',py:'shí',name:'Comida',sem:'Alimentos, comer y restaurantes',pic:'Cuenco de arroz tapado listo para comer',d:[{ch:'食',py:'shí',es:'Comer/Comida'},{ch:'饭',py:'fàn',es:'Arroz/Comida'},{ch:'饿',py:'è',es:'Tener hambre'},{ch:'饮',py:'yǐn',es:'Beber'},{ch:'饺',py:'jiǎo',es:'Empanadilla china'},{ch:'饼',py:'bǐng',es:'Torta/Pan plano'},{ch:'馆',py:'guǎn',es:'Restaurante/Local'},{ch:'饱',py:'bǎo',es:'Estar lleno'},{ch:'饥',py:'jī',es:'Hambre'},{ch:'餐',py:'cān',es:'Comida/Plato'},{ch:'馒',py:'mán',es:'Bollo al vapor'},{ch:'饲',py:'sì',es:'Alimentar'}]},
+  {char:'金',variant:'钅',py:'jīn',name:'Metal / Oro',sem:'Metales, monedas y objetos metálicos',pic:'Pepitas de metal enterradas bajo la tierra',d:[{ch:'金',py:'jīn',es:'Oro/Metal'},{ch:'钱',py:'qián',es:'Dinero'},{ch:'银',py:'yín',es:'Plata'},{ch:'铁',py:'tiě',es:'Hierro'},{ch:'钟',py:'zhōng',es:'Reloj/Campana'},{ch:'铃',py:'líng',es:'Timbre'},{ch:'针',py:'zhēn',es:'Aguja'},{ch:'锁',py:'suǒ',es:'Cerradura'},{ch:'铜',py:'tóng',es:'Cobre'},{ch:'铝',py:'lǚ',es:'Aluminio'},{ch:'钢',py:'gāng',es:'Acero'},{ch:'铺',py:'pū',es:'Tender/Tienda'}]},
+  {char:'车',variant:null,py:'chē',name:'Vehículo',sem:'Vehículos, transporte rodado y movimiento',pic:'Carro de guerra visto desde arriba',d:[{ch:'车',py:'chē',es:'Vehículo/Coche'},{ch:'轮',py:'lún',es:'Rueda'},{ch:'辆',py:'liàng',es:'Clasificador-vehículo'},{ch:'轻',py:'qīng',es:'Ligero'},{ch:'转',py:'zhuǎn',es:'Girar/Cambiar'},{ch:'较',py:'jiào',es:'Comparar/Bastante'},{ch:'军',py:'jūn',es:'Ejército'},{ch:'辈',py:'bèi',es:'Generación'},{ch:'轨',py:'guǐ',es:'Carril/Raíl'},{ch:'载',py:'zài',es:'Cargar/Transportar'},{ch:'辗',py:'niǎn',es:'Rodar'},{ch:'轰',py:'hōng',es:'Bombardear'}]},
+  {char:'力',variant:null,py:'lì',name:'Fuerza',sem:'Fuerza, esfuerzo y trabajo físico',pic:'Trazo en forma de brazo musculoso doblado',d:[{ch:'力',py:'lì',es:'Fuerza'},{ch:'男',py:'nán',es:'Hombre'},{ch:'动',py:'dòng',es:'Moverse'},{ch:'助',py:'zhù',es:'Ayudar'},{ch:'努',py:'nǔ',es:'Esforzarse'},{ch:'劳',py:'láo',es:'Trabajar'},{ch:'加',py:'jiā',es:'Añadir'},{ch:'勤',py:'qín',es:'Diligente'},{ch:'功',py:'gōng',es:'Logro/Mérito'},{ch:'勇',py:'yǒng',es:'Valiente'},{ch:'办',py:'bàn',es:'Gestionar'},{ch:'勉',py:'miǎn',es:'Esforzarse'}]},
+  {char:'工',variant:null,py:'gōng',name:'Trabajo',sem:'Trabajo, artesanía y construcción',pic:'Viga en forma de I usada en construcción',d:[{ch:'工',py:'gōng',es:'Trabajo'},{ch:'左',py:'zuǒ',es:'Izquierda'},{ch:'攻',py:'gōng',es:'Atacar'},{ch:'江',py:'jiāng',es:'Río largo'},{ch:'项',py:'xiàng',es:'Ítem/Artículo'},{ch:'式',py:'shì',es:'Estilo/Forma'},{ch:'巨',py:'jù',es:'Enorme'},{ch:'贡',py:'gòng',es:'Tributo'},{ch:'差',py:'chā',es:'Diferencia'},{ch:'巧',py:'qiǎo',es:'Hábil/Ingenioso'},{ch:'空',py:'kōng',es:'Vacío/Cielo'},{ch:'红',py:'hóng',es:'Rojo'}]},
+  {char:'见',variant:null,py:'jiàn',name:'Ver',sem:'Percepción visual, encuentros y opiniones',pic:'Ojo con piernas para ver e ir hacia lo visto',d:[{ch:'见',py:'jiàn',es:'Ver'},{ch:'现',py:'xiàn',es:'Aparecer/Ahora'},{ch:'觉',py:'jué',es:'Sentir/Despertar'},{ch:'观',py:'guān',es:'Observar'},{ch:'览',py:'lǎn',es:'Hojear'},{ch:'规',py:'guī',es:'Regla'},{ch:'视',py:'shì',es:'Ver/Televisión'},{ch:'觅',py:'mì',es:'Buscar'},{ch:'亲',py:'qīn',es:'Cercano/Familiar'},{ch:'睹',py:'dǔ',es:'Ver/Presenciar'},{ch:'觐',py:'jìn',es:'Audiencia real'},{ch:'觑',py:'qù',es:'Mirar de reojo'}]},
+  {char:'纟',variant:null,py:'sī',name:'Hilo / Seda',sem:'Telas, hilos y artesanía textil',pic:'Carrete de seda con hilo enrollado en espiral',d:[{ch:'红',py:'hóng',es:'Rojo'},{ch:'绿',py:'lǜ',es:'Verde'},{ch:'紫',py:'zǐ',es:'Morado'},{ch:'丝',py:'sī',es:'Seda'},{ch:'线',py:'xiàn',es:'Línea/Hilo'},{ch:'纸',py:'zhǐ',es:'Papel'},{ch:'结',py:'jié',es:'Anudar/Resultado'},{ch:'绳',py:'shéng',es:'Cuerda'},{ch:'织',py:'zhī',es:'Tejer'},{ch:'缘',py:'yuán',es:'Destino/Conexión'},{ch:'络',py:'luò',es:'Red'},{ch:'绣',py:'xiù',es:'Bordado'}]},
+  {char:'犭',variant:'犬',py:'quǎn',name:'Perro / Animal',sem:'Animales domésticos, fieras y bestias',pic:'Perro de perfil con cola alzada y orejas tiesas',d:[{ch:'犬',py:'quǎn',es:'Perro'},{ch:'狗',py:'gǒu',es:'Perro'},{ch:'猫',py:'māo',es:'Gato'},{ch:'狼',py:'láng',es:'Lobo'},{ch:'猴',py:'hóu',es:'Mono'},{ch:'狐',py:'hú',es:'Zorro'},{ch:'猪',py:'zhū',es:'Cerdo'},{ch:'狮',py:'shī',es:'León'},{ch:'猛',py:'měng',es:'Feroz'},{ch:'独',py:'dú',es:'Solo/Independiente'},{ch:'狭',py:'xiá',es:'Estrecho'},{ch:'猎',py:'liè',es:'Cazar'}]},
+  {char:'宀',variant:null,py:'mián',name:'Techo / Casa',sem:'Hogar, habitaciones y espacios cubiertos',pic:'Techo de una casa con punto de apoyo central',d:[{ch:'家',py:'jiā',es:'Casa/Familia'},{ch:'室',py:'shì',es:'Habitación'},{ch:'宫',py:'gōng',es:'Palacio'},{ch:'安',py:'ān',es:'Tranquilo'},{ch:'宝',py:'bǎo',es:'Tesoro'},{ch:'定',py:'dìng',es:'Decidir/Fijo'},{ch:'宿',py:'sù',es:'Alojarse'},{ch:'字',py:'zì',es:'Carácter/Letra'},{ch:'容',py:'róng',es:'Contener/Aspecto'},{ch:'完',py:'wán',es:'Completo'},{ch:'寒',py:'hán',es:'Frío'},{ch:'宇',py:'yǔ',es:'Universo'}]},
+  {char:'刀',variant:'刂',py:'dāo',name:'Cuchillo',sem:'Cortar, herramientas afiladas y división',pic:'Cuchillo de hoja curva con filo brillante',d:[{ch:'刀',py:'dāo',es:'Cuchillo'},{ch:'切',py:'qiē',es:'Cortar'},{ch:'分',py:'fēn',es:'Dividir/Minuto'},{ch:'刻',py:'kè',es:'Momento/Grabar'},{ch:'到',py:'dào',es:'Llegar'},{ch:'别',py:'bié',es:'Diferente/Separar'},{ch:'利',py:'lì',es:'Beneficio/Afilado'},{ch:'削',py:'xuē',es:'Pelar'},{ch:'刺',py:'cī',es:'Pinchar'},{ch:'刊',py:'kān',es:'Publicar'},{ch:'创',py:'chuāng',es:'Crear/Herida'},{ch:'剪',py:'jiǎn',es:'Cortar-tijeras'}]},
+  {char:'礻',variant:'示',py:'shì',name:'Religión / Mostrar',sem:'Religión, rituales y lo sagrado',pic:'Mesa de altar con ofrendas dispuestas encima',d:[{ch:'神',py:'shén',es:'Dios/Espíritu'},{ch:'礼',py:'lǐ',es:'Cortesía/Regalo'},{ch:'社',py:'shè',es:'Sociedad'},{ch:'祖',py:'zǔ',es:'Ancestro'},{ch:'祝',py:'zhù',es:'Desear/Felicitar'},{ch:'福',py:'fú',es:'Suerte/Bendición'},{ch:'禁',py:'jìn',es:'Prohibir'},{ch:'祈',py:'qí',es:'Rezar'},{ch:'祭',py:'jì',es:'Ceremonial'},{ch:'祸',py:'huò',es:'Desastre'},{ch:'视',py:'shì',es:'Ver/TV'},{ch:'示',py:'shì',es:'Mostrar'}]},
+  {char:'页',variant:null,py:'yè',name:'Página / Cabeza',sem:'Páginas, cabeza y conceptos que fluyen',pic:'Persona con cabeza prominente que da vida a las ideas',d:[{ch:'页',py:'yè',es:'Página'},{ch:'顶',py:'dǐng',es:'Cima/Encima'},{ch:'顾',py:'gù',es:'Cuidar/Mirar'},{ch:'颜',py:'yán',es:'Color/Cara'},{ch:'题',py:'tí',es:'Tema/Problema'},{ch:'顺',py:'shùn',es:'En orden/Fluido'},{ch:'须',py:'xū',es:'Deber/Barba'},{ch:'额',py:'é',es:'Frente/Cantidad'},{ch:'颈',py:'jǐng',es:'Cuello'},{ch:'频',py:'pín',es:'Frecuente'},{ch:'颠',py:'diān',es:'Cima/Loco'},{ch:'颇',py:'pō',es:'Bastante'}]}
 ];
 
+const RAD_LEVELS=[1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,5];
+const LEVEL_DESCS={
+  1:'Nivel 1 · Elementos primarios — Los 8 radicales más visuales e intuitivos',
+  2:'Nivel 2 · Cuerpo humano — Radicales del cuerpo y la percepción',
+  3:'Nivel 3 · Naturaleza ampliada — Clima, entorno y fauna',
+  4:'Nivel 4 · Cultura y actividad — Movimiento, lenguaje y economía',
+  5:'Nivel 5 · Avanzado — Radicales abstractos y especializados'
+};
+
+/* SVG pictogramas */
+const PICTOS=[
+  `<circle cx="30" cy="9" r="7"/><line x1="30" y1="16" x2="30" y2="38"/><line x1="30" y1="38" x2="16" y2="56"/><line x1="30" y1="38" x2="44" y2="56"/><line x1="14" y1="28" x2="46" y2="28"/>`,
+  `<circle cx="30" cy="30" r="20"/><line x1="10" y1="30" x2="50" y2="30"/>`,
+  `<path d="M38 4A26 26 0 0 0 38 56A18 18 0 0 1 38 4Z"/><line x1="20" y1="24" x2="38" y2="24"/><line x1="20" y1="36" x2="38" y2="36"/>`,
+  `<polyline points="4,56 20,24 30,6 40,24 56,56"/><line x1="20" y1="24" x2="20" y2="56"/><line x1="40" y1="24" x2="40" y2="56"/>`,
+  `<path d="M6 18C16 11 24 25 34 18C44 11 52 25 58 18"/><path d="M6 32C16 25 24 39 34 32C44 25 52 39 58 32"/><path d="M6 46C16 39 24 53 34 46C44 39 52 53 58 46"/>`,
+  `<path d="M30 56C10 44 14 26 20 14C26 4 20 2 20 2C32 14 28 24 34 14C38 6 50 8 50 8C46 22 44 32 50 20C54 36 48 50 30 56Z"/>`,
+  `<line x1="30" y1="4" x2="30" y2="56"/><line x1="10" y1="24" x2="50" y2="24"/><line x1="30" y1="56" x2="16" y2="68"/><line x1="30" y1="56" x2="44" y2="68"/>`,
+  `<rect x="13" y="16" width="34" height="28" rx="4"/><line x1="13" y1="30" x2="47" y2="30"/>`,
+  `<path d="M6 30Q18 12 30 12Q42 12 54 30Q42 48 30 48Q18 48 6 30Z"/><circle cx="30" cy="30" r="6" fill="currentColor" opacity=".5"/><line x1="6" y1="30" x2="54" y2="30"/>`,
+  `<path d="M18 8Q8 8 8 24Q8 44 18 52Q28 58 30 52Q32 46 26 46Q18 46 18 30Q18 16 26 16Q32 16 30 10Q28 6 18 8Z"/><line x1="20" y1="22" x2="28" y2="22"/><line x1="20" y1="30" x2="28" y2="30"/><line x1="20" y1="38" x2="28" y2="38"/>`,
+  `<line x1="30" y1="54" x2="30" y2="20"/><line x1="21" y1="54" x2="21" y2="16"/><line x1="39" y1="54" x2="39" y2="16"/><line x1="12" y1="54" x2="12" y2="26"/><line x1="48" y1="54" x2="48" y2="26"/><path d="M12 26Q30 13 48 26"/>`,
+  `<path d="M30 52C8 36 4 18 14 12C22 6 28 14 30 22C32 14 38 6 46 12C56 18 52 36 30 52Z"/>`,
+  `<circle cx="30" cy="9" r="7"/><path d="M12 28Q30 20 48 28"/><line x1="30" y1="28" x2="18" y2="56"/><line x1="30" y1="28" x2="42" y2="56"/>`,
+  `<circle cx="30" cy="12" r="11"/><line x1="30" y1="23" x2="30" y2="44"/><line x1="12" y1="30" x2="48" y2="30"/><line x1="30" y1="44" x2="22" y2="58"/><line x1="30" y1="44" x2="38" y2="58"/>`,
+  `<line x1="30" y1="8" x2="30" y2="50"/><line x1="14" y1="28" x2="46" y2="28"/><line x1="8" y1="54" x2="52" y2="54"/>`,
+  `<line x1="18" y1="6" x2="18" y2="38"/><line x1="8" y1="22" x2="36" y2="22"/><path d="M18 38Q18 50 36 52Q50 52 52 46"/>`,
+  `<path d="M8 28Q10 12 30 12Q50 12 52 28Q58 28 56 38Q54 46 46 46L14 46Q6 46 4 38Q2 28 8 28Z"/><line x1="18" y1="52" x2="16" y2="60"/><line x1="30" y1="52" x2="28" y2="60"/><line x1="42" y1="52" x2="40" y2="60"/>`,
+  `<rect x="8" y="8" width="44" height="50" rx="2"/><line x1="30" y1="8" x2="30" y2="58"/><circle cx="23" cy="33" r="3.5" fill="currentColor" opacity=".6"/><circle cx="37" cy="33" r="3.5" fill="currentColor" opacity=".6"/>`,
+  `<line x1="30" y1="32" x2="30" y2="56"/><line x1="10" y1="32" x2="50" y2="32"/><path d="M18 32Q18 10 10 6"/><path d="M30 32Q30 8 30 4"/><path d="M42 32Q42 10 50 6"/>`,
+  `<path d="M10 6L10 36L50 36"/><ellipse cx="32" cy="49" rx="14" ry="10"/>`,
+  `<rect x="8" y="8" width="44" height="44" rx="2"/><line x1="30" y1="8" x2="30" y2="52"/><line x1="8" y1="30" x2="52" y2="30"/>`,
+  `<ellipse cx="26" cy="30" rx="18" ry="12"/><path d="M44 20L56 10L56 50L44 40"/><circle cx="16" cy="26" r="3" fill="currentColor" opacity=".6"/><line x1="30" y1="22" x2="42" y2="22"/><line x1="30" y1="30" x2="42" y2="30"/><line x1="30" y1="38" x2="42" y2="38"/>`,
+  `<circle cx="22" cy="16" r="10"/><path d="M30 20Q46 26 50 36Q46 44 34 46Q22 48 14 44"/><path d="M14 44Q10 52 6 56"/><path d="M14 44Q18 52 14 58"/><path d="M18 10L28 6"/><circle cx="16" cy="12" r="2.5" fill="currentColor" opacity=".7"/>`,
+  `<circle cx="38" cy="15" r="9"/><line x1="34" y1="7" x2="30" y2="1"/><line x1="42" y1="7" x2="46" y2="2"/><path d="M30 15C14 18 6 30 12 42C18 54 38 54 42 44C46 34 36 28 26 34"/>`,
+  `<circle cx="30" cy="8" r="7"/><line x1="30" y1="15" x2="24" y2="34"/><line x1="24" y1="34" x2="12" y2="28"/><line x1="24" y1="34" x2="20" y2="52"/><line x1="24" y1="34" x2="40" y2="42"/><line x1="40" y1="42" x2="46" y2="56"/>`,
+  `<line x1="12" y1="10" x2="48" y2="10"/><rect x="14" y="18" width="24" height="16" rx="3"/><line x1="12" y1="44" x2="48" y2="44"/><line x1="12" y1="54" x2="40" y2="54"/>`,
+  `<ellipse cx="30" cy="20" rx="18" ry="9"/><path d="M12 28Q12 52 30 54Q48 52 48 28"/><line x1="12" y1="38" x2="48" y2="38"/>`,
+  `<polyline points="30,6 10,42 50,42"/><line x1="18" y1="52" x2="22" y2="42"/><line x1="28" y1="56" x2="30" y2="42"/><line x1="38" y1="56" x2="36" y2="42"/><line x1="48" y1="52" x2="44" y2="42"/>`,
+  `<circle cx="30" cy="30" r="22"/><circle cx="30" cy="30" r="5" fill="currentColor" opacity=".4"/><line x1="8" y1="30" x2="52" y2="30"/><line x1="30" y1="8" x2="30" y2="52"/><line x1="14" y1="14" x2="46" y2="46"/><line x1="46" y1="14" x2="14" y2="46"/>`,
+  `<path d="M16 8Q14 20 18 30Q24 44 20 56"/><path d="M16 8Q30 4 36 14Q40 22 34 26Q26 28 20 30Q28 34 30 44Q32 52 28 58"/>`,
+  `<line x1="12" y1="10" x2="48" y2="10"/><line x1="30" y1="10" x2="30" y2="50"/><line x1="12" y1="50" x2="48" y2="50"/>`,
+  `<path d="M8 20Q20 6 30 6Q40 6 52 20Q40 34 30 34Q20 34 8 20Z"/><circle cx="30" cy="20" r="6" fill="currentColor" opacity=".5"/><line x1="20" y1="34" x2="14" y2="56"/><line x1="40" y1="34" x2="46" y2="56"/>`,
+  `<path d="M18 18Q18 6 30 6Q42 6 42 18Q42 30 30 30Q18 30 18 18Z"/><path d="M18 36Q18 24 30 24Q42 24 42 36Q42 48 30 48Q18 48 18 36Z"/><line x1="30" y1="48" x2="30" y2="58"/>`,
+  `<circle cx="40" cy="14" r="9"/><circle cx="34" cy="10" r="3" fill="currentColor" opacity=".6"/><path d="M34 22Q20 24 14 34Q10 42 14 50Q18 56 28 56"/><line x1="14" y1="36" x2="6" y2="44"/><line x1="14" y1="46" x2="6" y2="54"/><line x1="26" y1="56" x2="22" y2="68"/><line x1="36" y1="56" x2="36" y2="68"/><path d="M46 20Q54 16 54 8"/>`,
+  `<path d="M6 32L30 6L54 32"/><line x1="14" y1="28" x2="14" y2="56"/><line x1="46" y1="28" x2="46" y2="56"/><line x1="14" y1="56" x2="46" y2="56"/><circle cx="30" cy="20" r="4" fill="currentColor" opacity=".4"/>`,
+  `<path d="M28 6Q38 6 40 16Q42 28 38 44Q36 54 30 58Q24 56 22 48Q18 38 24 22Q26 12 28 6Z"/><line x1="28" y1="6" x2="18" y2="10"/>`,
+  `<line x1="12" y1="14" x2="48" y2="14"/><line x1="30" y1="14" x2="30" y2="38"/><line x1="14" y1="38" x2="46" y2="38"/><path d="M24 38L20 56"/><path d="M36 38L40 56"/>`,
+  `<circle cx="30" cy="14" r="14"/><line x1="30" y1="28" x2="30" y2="44"/><line x1="16" y1="36" x2="44" y2="36"/><line x1="30" y1="44" x2="18" y2="58"/><line x1="30" y1="44" x2="42" y2="58"/>`
+];
+
+function getPicto(idx){
+  const inner=PICTOS[idx]||'';
+  return `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" width="48" height="48">${inner}</svg>`;
+}
+function switchLevel(n,btn){
+  document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('level-desc').textContent=LEVEL_DESCS[n];
+  renderRadSel(n);
+}
+function renderRadSel(level){
+  const ids=RAD_LEVELS.map((l,i)=>l===level?i:-1).filter(i=>i>=0);
+  const sel=document.getElementById('rsel');
+  sel.innerHTML=ids.map((idx,pos)=>{
+    const cls=pos===0?' active':'';
+    return '<button class="rsb'+cls+'" onclick="showRad('+idx+',this)">'+RDATA[idx].char+'</button>';
+  }).join('');
+  if(ids.length>0) showRad(ids[0],sel.querySelector('.rsb'));
+}
 function showRad(idx,btn){
   document.querySelectorAll('.rsb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   const r=RDATA[idx];
   const charDisp=r.variant?r.char+' ('+r.variant+')':r.char;
+  const picSvg=getPicto(idx);
   document.getElementById('rad-hdr').innerHTML=
-    '<div class="rhd-l"><div class="rhd-char">'+charDisp+'</div></div>'+
+    '<div class="rhd-l"><div class="rhd-char">'+charDisp+'</div><div class="rhd-picto">'+picSvg+'</div></div>'+
     '<div class="rhd-r">'+
       '<div class="rhd-title">Radical de '+r.name+' ('+r.py+')</div>'+
       '<div class="rhd-sem">'+r.sem+'.</div>'+
-      '<div class="rhd-pic"><span>🎨</span> Pictograma: '+r.pic+'.</div>'+
+      '<div class="rhd-pic"><span>🏛️</span> Origen: '+r.pic+'.</div>'+
     '</div>';
   document.getElementById('dchar-grid').innerHTML=r.d.map(d=>
     '<div class="dcard">'+
@@ -701,33 +762,54 @@ function showRad(idx,btn){
     '</div>'
   ).join('');
 }
-
-function playAudio(char){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(char);
-  u.lang='zh-CN';u.rate=0.7;
-  window.speechSynthesis.speak(u);
+function initRadicales(){
+  document.getElementById('level-desc').textContent=LEVEL_DESCS[1];
+  renderRadSel(1);
 }
-
-function initRadicales(){showRad(0,document.querySelector('.rsb'));}
 
 /* ══ QUIZ ══ */
 const QR=[
-  {ch:'人',py:'rén',mn:'Persona'},{ch:'口',py:'kǒu',mn:'Boca'},
-  {ch:'水',py:'shuǐ',mn:'Agua'},{ch:'木',py:'mù',mn:'Árbol / Madera'},
-  {ch:'门',py:'mén',mn:'Puerta'},{ch:'日',py:'rì',mn:'Sol / Día'},
-  {ch:'火',py:'huǒ',mn:'Fuego'},{ch:'女',py:'nǚ',mn:'Mujer'},
-  {ch:'山',py:'shān',mn:'Montaña'},{ch:'心',py:'xīn',mn:'Corazón'},
-  {ch:'手',py:'shǒu',mn:'Mano'},{ch:'目',py:'mù',mn:'Ojo'},
-  {ch:'土',py:'tǔ',mn:'Tierra'},{ch:'言',py:'yán',mn:'Hablar'},
-  {ch:'金',py:'jīn',mn:'Metal / Oro'},{ch:'车',py:'chē',mn:'Vehículo'},
-  {ch:'食',py:'shí',mn:'Comida'},{ch:'虫',py:'chóng',mn:'Insecto'},
-  {ch:'雨',py:'yǔ',mn:'Lluvia'},{ch:'月',py:'yuè',mn:'Luna / Mes'},
+  {ch:'人',py:'rén',mn:'Persona'},
+  {ch:'日',py:'rì',mn:'Sol / Día'},
+  {ch:'月',py:'yuè',mn:'Luna / Mes'},
+  {ch:'山',py:'shān',mn:'Montaña'},
+  {ch:'水',py:'shuǐ',mn:'Agua'},
+  {ch:'火',py:'huǒ',mn:'Fuego'},
+  {ch:'木',py:'mù',mn:'Árbol / Madera'},
+  {ch:'口',py:'kǒu',mn:'Boca'},
+  {ch:'目',py:'mù',mn:'Ojo'},
+  {ch:'耳',py:'ěr',mn:'Oreja'},
+  {ch:'手',py:'shǒu',mn:'Mano'},
+  {ch:'心',py:'xīn',mn:'Corazón'},
+  {ch:'女',py:'nǚ',mn:'Mujer'},
+  {ch:'子',py:'zǐ',mn:'Niño / Hijo'},
+  {ch:'土',py:'tǔ',mn:'Tierra'},
+  {ch:'足',py:'zú',mn:'Pie'},
+  {ch:'雨',py:'yǔ',mn:'Lluvia'},
+  {ch:'门',py:'mén',mn:'Puerta'},
+  {ch:'草',py:'cǎo',mn:'Hierba / Planta'},
+  {ch:'石',py:'shí',mn:'Piedra'},
+  {ch:'田',py:'tián',mn:'Campo'},
+  {ch:'鱼',py:'yú',mn:'Pez'},
+  {ch:'鸟',py:'niǎo',mn:'Pájaro'},
+  {ch:'虫',py:'chóng',mn:'Insecto'},
+  {ch:'走',py:'zǒu',mn:'Caminar'},
+  {ch:'言',py:'yán',mn:'Hablar'},
+  {ch:'食',py:'shí',mn:'Comida'},
+  {ch:'金',py:'jīn',mn:'Metal / Oro'},
+  {ch:'车',py:'chē',mn:'Vehículo'},
+  {ch:'力',py:'lì',mn:'Fuerza'},
+  {ch:'工',py:'gōng',mn:'Trabajo'},
+  {ch:'见',py:'jiàn',mn:'Ver'},
+  {ch:'纟',py:'sī',mn:'Hilo / Seda'},
+  {ch:'犭',py:'quǎn',mn:'Perro / Animal'},
+  {ch:'宀',py:'mián',mn:'Techo / Casa'},
+  {ch:'刀',py:'dāo',mn:'Cuchillo'},
+  {ch:'礻',py:'shì',mn:'Religión / Mostrar'},
+  {ch:'页',py:'yè',mn:'Página / Cabeza'}
 ];
-let qs=[],ci=0,sc=0;
-const rnd=a=>[...a].sort(()=>Math.random()-.5);
-function startQuiz(){quizState='running';qs=rnd(QR);ci=0;sc=0;document.getElementById('qend').style.display='none';document.getElementById('qcard').style.display='block';document.getElementById('q-tot').textContent=QR.length;renderQ();}
+const QUIZ_COUNT=15;
+function startQuiz(){quizState='running';qs=rnd(QR).slice(0,QUIZ_COUNT);ci=0;sc=0;document.getElementById('qend').style.display='none';document.getElementById('qcard').style.display='block';document.getElementById('q-tot').textContent=QUIZ_COUNT;renderQ();}
 function renderQ(){document.getElementById('q-num').textContent=ci+1;document.getElementById('q-sc').textContent=sc;document.getElementById('q-bar').style.width=(ci/QR.length*100)+'%';const q=qs[ci];const ch=document.getElementById('q-ch');ch.textContent=q.ch;ch.classList.remove('pop');void ch.offsetWidth;ch.classList.add('pop');document.getElementById('q-py').textContent=q.py;document.getElementById('q-fb').textContent='';document.getElementById('q-fb').className='qfb';const wrong=rnd(QR.filter(r=>r.ch!==q.ch)).slice(0,3);const opts=rnd([q,...wrong]);const c=document.getElementById('q-opts');c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o.mn;b.addEventListener('click',()=>answerQ(b,o.ch===q.ch));c.appendChild(b);});}
 function answerQ(sel,ok){document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(b.textContent===qs[ci].mn)b.classList.add('ok');});const fb=document.getElementById('q-fb');if(ok){sc++;fb.textContent='✅ ¡Correcto!';fb.className='qfb fbok';}else{sel.classList.add('no');fb.textContent='❌ Incorrecto — la correcta está en verde';fb.className='qfb fbno';}setTimeout(()=>{ci++;ci<QR.length?renderQ():endQuiz();},1300);}
 function endQuiz(){quizState='ended';document.getElementById('q-num').textContent=QR.length;document.getElementById('q-sc').textContent=sc;document.getElementById('q-bar').style.width='100%';document.getElementById('qcard').style.display='none';const p=sc/QR.length;document.getElementById('estars').textContent=p===1?'⭐⭐⭐':p>=.75?'⭐⭐':p>=.5?'⭐':'💪';document.getElementById('enum').textContent=sc+' / '+QR.length;document.getElementById('emsg').textContent=p===1?'¡Perfecto! Estás listo para China 🇨🇳':p>=.75?'¡Muy bien! Repasa las que fallaste':p>=.5?'¡Buen intento! Sigue practicando':'Los radicales llevan tiempo. ¡No te rindas!';document.getElementById('qend').style.display='block';}

@@ -178,7 +178,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:0 0 3px 3px;
   transform:scaleX(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
 .nitem.active{color:var(--cyan);}.nitem.active::after{transform:scaleX(1);}
-.nico{font-size:1.25rem;line-height:1;}
+.nico{display:flex;align-items:center;justify-content:center;} .nico svg{width:22px;height:22px;}
 .nlbl{font-size:.6rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
 .subnav-wrapper{display:flex;width:100%;height:100%;align-items:center;}
 .nav-back{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -215,6 +215,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 .level-desc{font-size:.78rem;color:var(--mut);margin-bottom:.9rem;padding:0 .1rem;}
 .rhd-picto{margin-top:8px;color:rgba(232,68,90,.45);display:flex;justify-content:center;align-items:center;}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
 <body>
 
@@ -546,10 +547,10 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <div class="nav-panel" id="nav-main">
-    <button class="nitem active" data-id="dias" onclick="tapDias(this)"><span class="nico">📅</span><span class="nlbl">Días</span></button>
-    <button class="nitem" data-id="cerca" onclick="tapCerca(this)"><span class="nico">📍</span><span class="nlbl">Cerca</span></button>
-    <button class="nitem" data-id="cambio" onclick="tapCambio(this)"><span class="nico">💱</span><span class="nlbl">Cambio</span></button>
-    <button class="nitem" data-id="util" onclick="tapUtil(this)"><span class="nico">ℹ️</span><span class="nlbl">Útil</span></button>
+    <button class="nitem active" data-id="dias" onclick="tapDias(this)"><span class="nico"><i class="ti ti-map-route" aria-hidden="true"></i></span><span class="nlbl">Días</span></button>
+    <button class="nitem" data-id="cerca" onclick="tapCerca(this)"><span class="nico"><i class="ti ti-map-pin" aria-hidden="true"></i></span><span class="nlbl">Cerca</span></button>
+    <button class="nitem" data-id="cambio" onclick="tapCambio(this)"><span class="nico"><i class="ti ti-coins" aria-hidden="true"></i></span><span class="nlbl">Cambio</span></button>
+    <button class="nitem" data-id="util" onclick="tapUtil(this)"><span class="nico"><i class="ti ti-apps" aria-hidden="true"></i></span><span class="nlbl">Útil</span></button>
   </div>
   <div class="nav-panel active" id="nav-dias">
     <div class="subnav-wrapper">

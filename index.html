@@ -214,6 +214,39 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 .lbtn.active{border-color:var(--char-red);background:rgba(232,68,90,.12);color:var(--char-red);}
 .level-desc{font-size:.78rem;color:var(--mut);margin-bottom:.9rem;padding:0 .1rem;}
 .rhd-picto{margin-top:8px;color:rgba(232,68,90,.45);display:flex;justify-content:center;align-items:center;}
+
+/* ── Guía: acordeón ─────────────────────────────────────────── */
+.guide-intro{font-size:.8rem;color:var(--mut);margin-bottom:.9rem;padding:.7rem .9rem;
+  background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:10px;line-height:1.5;}
+.acc-list{padding-bottom:1.2rem;}
+.acc-item{border:1px solid var(--bd);border-radius:12px;margin-bottom:8px;
+  overflow:hidden;background:rgba(255,255,255,.03);}
+.acc-hdr{padding:13px 14px;cursor:pointer;display:flex;align-items:center;
+  gap:10px;font-weight:600;font-size:.88rem;user-select:none;transition:background .15s;}
+.acc-hdr:hover{background:rgba(255,255,255,.04);}
+.acc-hdr .acc-ico{font-size:1.1rem;}
+.acc-hdr .acc-arr{margin-left:auto;font-size:.75rem;transition:transform .2s;color:var(--mut);font-weight:400;}
+.acc-hdr.open .acc-arr{transform:rotate(180deg);}
+.acc-hdr.open{border-bottom:1px solid var(--bd);background:rgba(232,68,90,.06);}
+.acc-body{display:none;padding:12px 14px 14px;}
+.acc-body.open{display:block;}
+.acc-sub{margin-bottom:1rem;padding-bottom:.9rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.acc-sub:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.acc-sub-hdr{font-size:.82rem;font-weight:700;color:var(--char-red);margin-bottom:.45rem;letter-spacing:.01em;}
+.acc-body p{font-size:.84rem;color:rgba(255,255,255,.72);line-height:1.6;margin-bottom:.45rem;}
+.acc-body p:last-child{margin-bottom:0;}
+.g-step{display:flex;gap:9px;margin-bottom:.45rem;font-size:.83rem;
+  color:rgba(255,255,255,.72);line-height:1.55;}
+.g-step:last-child{margin-bottom:0;}
+.g-num{min-width:20px;height:20px;border-radius:50%;background:var(--char-red);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;
+  font-weight:700;flex-shrink:0;margin-top:1px;}
+.tip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:8px 11px;margin-top:.5rem;font-size:.8rem;
+  color:rgba(255,255,255,.65);line-height:1.5;}
+.warn{background:rgba(232,68,90,.08);border:1px solid rgba(232,68,90,.2);
+  border-radius:8px;padding:8px 11px;margin-top:.5rem;font-size:.8rem;
+  color:rgba(255,120,120,.85);line-height:1.5;}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
@@ -221,7 +254,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 
 <header>
   <div class="logo">CHINA 2027</div>
-  <span class="vtag">v0.12</span>
+  <span class="vtag">v0.13</span>
 </header>
 
 <main>
@@ -436,6 +469,178 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
 </div>
 
+
+<!-- GUÍA DE CONSEJOS ───────────────────────────────────── -->
+<div id="page-guia" class="page">
+  <div class="guide-intro">
+    Consejos de <strong>Asiahop</strong> para viajar con confianza por China — apps, pagos, transporte y más.
+  </div>
+  <div class="acc-list">
+
+    <!-- COMUNICACIONES -->
+    <div class="acc-item">
+      <div class="acc-hdr" onclick="toggleAcc(this)">
+        <span class="acc-ico">📡</span><span>Comunicaciones</span><span class="acc-arr">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">eSIM</div>
+          <p>Tu viaje incluye una eSIM con <strong>datos ilimitados y VPN incorporada</strong>. Tendrás acceso a Google, WhatsApp y redes sociales bloqueadas en China sin hacer nada extra.</p>
+          <div class="warn">⚠️ Si te conectas a la WiFi del hotel o de un café, las restricciones de China estarán activas. Usa siempre los datos de tu eSIM para evitarlo.</div>
+          <p style="margin-top:.6rem">La eSIM no tiene número local, pero puedes llamar por WhatsApp y otras apps de voz.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">WeChat 微信</div>
+          <p>La app más usada de China: mensajes, pagos, taxis, escanear menús de restaurante y comunicarte con hotel y guías.</p>
+          <div class="g-step"><div class="g-num">1</div><div>Descarga WeChat de tu App Store y crea una cuenta.</div></div>
+          <div class="g-step"><div class="g-num">2</div><div>Guarda bien la contraseña — no es fácil recuperarla.</div></div>
+          <div class="g-step"><div class="g-num">3</div><div>Activa la traducción de chats: mantén pulsado un mensaje y elige "Traducir".</div></div>
+          <div class="tip">💡 Para compartir tu contacto, muestra tu código QR de perfil. Hoteles y guías te pedirán añadirte por WeChat.</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Herramientas de traducción 🌐</div>
+          <p><strong>Apple Traducir</strong> y <strong>Google Translate</strong> funcionan muy bien. Úsalos con la cámara para leer carteles y menús, y con el micrófono para hablar con locales.</p>
+          <div class="warn">⚠️ Google Translate solo funciona con tu eSIM. Con WiFi local usa Apple Traducir — no está restringida en China.</div>
+          <div class="tip">💡 Familiarízate con ambas apps antes de salir de casa.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DINERO Y PAGOS -->
+    <div class="acc-item">
+      <div class="acc-hdr" onclick="toggleAcc(this)">
+        <span class="acc-ico">💳</span><span>Dinero y pagos</span><span class="acc-arr">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Cómo pagar en China</div>
+          <p>China es prácticamente sin efectivo. Casi todo se paga con <strong>WeChat Pay</strong> o <strong>Alipay</strong> mediante código QR. Lleva algo de efectivo solo para mercados pequeños o zonas rurales.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">WeChat Pay 💬</div>
+          <p>Para añadir tu tarjeta española a WeChat:</p>
+          <div class="g-step"><div class="g-num">1</div><div>En WeChat ve a <strong>Yo → Pagos y servicios</strong>.</div></div>
+          <div class="g-step"><div class="g-num">2</div><div>Pulsa <strong>Monedero</strong>.</div></div>
+          <div class="g-step"><div class="g-num">3</div><div>Entra en <strong>Bank Cards</strong> y añade tu tarjeta de crédito o débito.</div></div>
+          <p style="margin-top:.5rem">Para pagar: WeChat → icono QR (arriba) → escanea el código del comercio. O muestra tu propio QR para que te lo escaneen.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Alipay 💙</div>
+          <p>Alternativa a WeChat Pay, muy aceptada en tiendas y restaurantes. Descarga la app y añade tu tarjeta española. El proceso de pago es idéntico al de WeChat Pay.</p>
+          <div class="tip">💡 Configura las dos. Algunos comercios solo aceptan una de ellas.</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Cajeros automáticos 🏧</div>
+          <p>Los cajeros aceptan Visa y Mastercard. Los de <strong>Bank of China</strong> e <strong>ICBC</strong> suelen tener interfaz en inglés. Lleva algo de efectivo para emergencias.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CÓMO MOVERSE -->
+    <div class="acc-item">
+      <div class="acc-hdr" onclick="toggleAcc(this)">
+        <span class="acc-ico">🚄</span><span>Cómo moverse</span><span class="acc-arr">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Mapas — Amap 高德地图</div>
+          <p>En China, Google Maps tiene cobertura muy limitada. Descarga <strong>Amap</strong>: funciona perfecto, incluye transporte público, rutas a pie y estimaciones de tiempo. Puedes escribir los destinos en inglés o pegar el nombre en chino.</p>
+          <div class="tip">💡 Familiarízate con Amap antes de viajar. Es la app de mapas de referencia en China.</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Avión ✈️</div>
+          <p>Los aeropuertos chinos funcionan igual que en occidente: check-in, control de seguridad y embarque. Notarás más tecnología de lo habitual. Todos tienen WiFi gratuita, restaurantes y enchufes en la sala de espera.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Tren bala 🚄</div>
+          <p>La clave más importante: <strong>se accede con el pasaporte, no con el billete</strong>. El billete solo indica tu coche y asiento.</p>
+          <div class="g-step"><div class="g-num">1</div><div>En el control de entrada muestra el <strong>pasaporte + billete</strong>.</div></div>
+          <div class="g-step"><div class="g-num">2</div><div>Pasa el control de seguridad y espera en la sala (hay restaurantes, tiendas y enchufes).</div></div>
+          <div class="g-step"><div class="g-num">3</div><div>Localiza tu tren en los paneles luminosos y acércate al andén con tiempo.</div></div>
+          <div class="g-step"><div class="g-num">4</div><div>En los tornos del andén, escanea el pasaporte. Si falla, busca al personal — te ayudarán.</div></div>
+          <div class="g-step"><div class="g-num">5</div><div>Dentro del tren busca tu coche (车) por las marcas del suelo. Hay enchufes y servicio de catering.</div></div>
+          <div class="warn">⚠️ Las ciudades grandes tienen varias estaciones (Norte, Sur, Este…). Comprueba bien en tu billete desde cuál sale tu tren.</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Metro 🚇</div>
+          <p>Los letreros están en chino y en alfabeto romano. Consulta la ruta en Amap. Puedes comprar billetes sencillos en máquinas o usar una tarjeta recargable. En Pekín y Shanghái aceptan Visa y Mastercard directamente en los tornos. Un trayecto suele costar menos de 5 yuanes.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Taxi y Didi 🚕</div>
+          <p>Parar un taxi por la calle es casi imposible salvo en estaciones y aeropuertos. Usa <strong>Didi</strong> (equivalente a Uber) — puedes abrirlo directamente desde WeChat o Alipay sin instalar nada.</p>
+          <div class="g-step"><div class="g-num">1</div><div>Abre Didi desde WeChat o Alipay. La primera vez regístrate con tu número de teléfono.</div></div>
+          <div class="g-step"><div class="g-num">2</div><div>Comprueba que el pin te localiza bien e introduce el destino. Si no lo encuentra en inglés, pega el nombre en chino.</div></div>
+          <div class="g-step"><div class="g-num">3</div><div>Elige el tipo de servicio (taxi, Didi estándar, coche grande…).</div></div>
+          <div class="g-step"><div class="g-num">4</div><div>Cuando acepten el viaje, <strong>no te muevas del punto de recogida</strong> — el conductor no ve si te desplazas.</div></div>
+          <div class="g-step"><div class="g-num">5</div><div>Al llegar, paga pulsando el <strong>botón azul</strong> con el precio en yuanes. No se cobra automáticamente como Uber.</div></div>
+          <div class="tip">💡 En aeropuertos y estaciones busca las zonas "E-hailing" — son los puntos designados para la recogida de Didi.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESTAURANTES -->
+    <div class="acc-item">
+      <div class="acc-hdr" onclick="toggleAcc(this)">
+        <span class="acc-ico">🍜</span><span>Restaurantes</span><span class="acc-arr">▾</span>
+      </div>
+      <div class="acc-body">
+        <p>Cada vez más restaurantes tienen carta digital con código QR en la mesa.</p>
+        <div class="g-step"><div class="g-num">1</div><div>Al sentarte, busca el código QR en la mesa.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div>Escanéalo con <strong>WeChat</strong> — importante usar WeChat, no la cámara del móvil, para que abra correctamente.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div>El menú tiene fotos de cada plato. Usa el traductor si tienes dudas.</div></div>
+        <div class="g-step"><div class="g-num">4</div><div>Haz el pedido desde la app. En algunos sitios también se paga desde ahí; en otros, al salir.</div></div>
+        <div class="tip">💡 Si no hay QR, el restaurante tiene carta tradicional. Para pedir la cuenta haz el gesto universal de firmar en el aire.</div>
+        <div class="tip" style="margin-top:.4rem">🤖 En algunos restaurantes llevan la comida robots. ¡Normal!</div>
+      </div>
+    </div>
+
+    <!-- PRACTICIDADES -->
+    <div class="acc-item">
+      <div class="acc-hdr" onclick="toggleAcc(this)">
+        <span class="acc-ico">🧳</span><span>Practicidades</span><span class="acc-arr">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Pasaporte 🛂</div>
+          <p><strong>Lleva el pasaporte siempre encima y a mano.</strong> Es obligatorio para entrar a museos, monumentos y trenes. Sin él no puedes subir al tren ni acceder a muchas atracciones.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Registro de entrada al país 📋</div>
+          <p>Al llegar a China hay que rellenar una tarjeta de entrada en el control de inmigración. Las aerolíneas suelen repartirla una hora antes de aterrizar. <strong>Lleva un bolígrafo.</strong></p>
+          <div class="tip">💡 También puedes hacerlo online antes de viajar: busca en Google "China Arrival card filling" → pulsa "Entry declaration".</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Enchufes 🔌</div>
+          <p>La tensión es 220V igual que en España — no necesitas adaptador de corriente. Pero los enchufes son diferentes (tipos I, C y A según la región). <strong>Lleva un adaptador universal.</strong></p>
+          <div class="tip">💡 Truco: 1-2 adaptadores + una regleta ligera para cargar todos los dispositivos a la vez. O un adaptador múltiple tipo Anker A9215 (4 USB + 1 toma de 220V).</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Agua potable 💧</div>
+          <p>El agua del grifo no es potable. Bebe siempre <strong>agua embotellada</strong>, que encontrarás fácilmente en cualquier tienda de conveniencia o supermercado. Los hoteles suelen dejar agua de cortesía.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Baterías externas ⚡</div>
+          <p>Para vuelos domésticos en China solo se permiten baterías con el sello <strong>CCC</strong> (China Compulsory Certification). Las puedes comprar allí desde ~10€ en tiendas <strong>MiniSo</strong> o <strong>Xiaomi</strong>.</p>
+          <div class="warn">⚠️ Si llevas la tuya de casa, comprueba que tenga el sello CCC visible antes de embarcar.</div>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Medicinas 💊</div>
+          <p>No hay problema para llevar tu botiquín habitual. Si tomas fármacos con opiáceos o psicoactivos (como la codeína), lleva la receta médica y una traducción al inglés.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Higiene y aseo 🧴</div>
+          <p>Los hoteles facilitan artículos básicos (gel, cepillo, pasta, toallas, papel). En supermercados encuentras de todo. <strong>Si usas tampones, tráelos de casa</strong> — no son fáciles de encontrar. En aseos públicos no siempre hay papel: lleva pañuelos encima.</p>
+        </div>
+        <div class="acc-sub">
+          <div class="acc-sub-hdr">Comida en el viaje 🍱</div>
+          <p>No puedes introducir en China semillas, productos cárnicos ni fruta fresca. Consúmelos antes de pasar inmigración. Una vez dentro del país puedes viajar con comida sin problema. Las estaciones de tren tienen tiendas y restaurantes.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.acc-list -->
+</div><!-- /#page-guia -->
+
 <!-- TIEMPO -->
 <div id="page-tiempo" class="page">
   <div class="glass empty" style="padding:2rem 1.5rem;">
@@ -579,6 +784,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
     <div class="subnav-wrapper">
       <button class="nav-back" onclick="backToMain('util')"><span class="ba">‹</span><span class="bt">Menú</span></button>
       <div class="nscroll">
+        <button class="nsb" onclick="tapGuia(this)">📖 Guía</button>
         <button class="nsb" onclick="tapTiempo(this)">🌤️ Tiempo</button>
         <button class="nsb" onclick="tapAprender(this)">文 Aprender Chino</button>
       </div>
@@ -609,13 +815,25 @@ function restoreMainActive(){document.querySelectorAll('.nitem').forEach(b=>{b.c
 function tapDias(btn){activeMain='dias';setMainActive(btn);showPanel('dias');if(!document.querySelector('#nav-dias .nsb.active')){document.querySelector('#nav-dias .nsb').classList.add('active');loadPage('dias-resumen');}}
 function tapCerca(btn){activeMain='cerca';setMainActive(btn);showPanel('main');loadPage('cerca');}
 function tapCambio(btn){activeMain='cambio';setMainActive(btn);showPanel('main');loadPage('cambio');}
-function tapUtil(btn){activeMain='util';setMainActive(btn);showPanel('util');if(!document.querySelector('#nav-util .nsb.active')){document.querySelector('#nav-util .nsb').classList.add('active');loadPage('tiempo');}}
+function tapUtil(btn){activeMain='util';setMainActive(btn);showPanel('util');if(!document.querySelector('#nav-util .nsb.active')){document.querySelector('#nav-util .nsb').classList.add('active');loadPage('guia');}}
 function tapDia(id,btn){setSubActive('dias',btn);loadPage('dias-'+id);}
+
+function tapGuia(btn){setSubActive('util',btn);loadPage('guia');}
+function toggleAcc(hdr){
+  const body=hdr.nextElementSibling;
+  const isOpen=hdr.classList.contains('open');
+  hdr.closest('.acc-list').querySelectorAll('.acc-hdr').forEach(h=>{
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){hdr.classList.add('open');body.classList.add('open');}
+}
+
 function tapTiempo(btn){setSubActive('util',btn);loadPage('tiempo');}
 function tapAprender(btn){setSubActive('util',btn);showPanel('chino');if(!document.querySelector('#nav-chino .nsb.active')){document.querySelector('#nav-chino .nsb').classList.add('active');loadPage('viaje');}}
 function tapChino(id,btn){setSubActive('chino',btn);loadPage(id);}
 function backToMain(from){showPanel('main');restoreMainActive();}
-function backToUtil(){showPanel('util');var bs=document.querySelectorAll('#nav-util .nsb');bs.forEach(b=>b.classList.remove('active'));bs[1].classList.add('active');}
+function backToUtil(){showPanel('util');var bs=document.querySelectorAll('#nav-util .nsb');bs.forEach(b=>b.classList.remove('active'));bs[2].classList.add('active');}
 
 /* ══ CONVERSOR ══ */
 let rate=7.88,dir='EUR_CNY';

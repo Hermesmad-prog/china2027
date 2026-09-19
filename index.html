@@ -247,6 +247,21 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 .warn{background:rgba(232,68,90,.08);border:1px solid rgba(232,68,90,.2);
   border-radius:8px;padding:8px 11px;margin-top:.5rem;font-size:.8rem;
   color:rgba(255,120,120,.85);line-height:1.5;}
+
+.rdr-row{display:flex;align-items:flex-start;gap:12px;}
+.rdr-dot-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:34px;}
+.rdr-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;border:2px dashed;flex-shrink:0;}
+.rdr-city-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid;flex-shrink:0;}
+.rdr-inner{width:13px;height:13px;border-radius:50%;}
+.rdr-info{flex:1;padding:3px 0 10px;}
+.rdr-name{font-size:.92rem;font-weight:600;color:var(--fg);line-height:1.25;}
+.rdr-sub{font-size:.76rem;color:var(--mut);margin-top:2px;line-height:1.4;}
+.rdr-conn{display:flex;align-items:stretch;gap:12px;min-height:36px;}
+.rdr-line{width:3px;flex-shrink:0;margin:0 auto;}
+.rdr-clabel{font-size:.76rem;color:var(--mut);padding:6px 0;align-self:center;}
+
+.hotel-link{color:var(--mut);text-decoration:none;display:inline-flex;align-items:center;gap:4px;border-bottom:1px dashed rgba(255,255,255,0.18);transition:color .15s;}
+.hotel-link:hover{color:var(--fg);}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
@@ -254,7 +269,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
 
 <header>
   <div class="logo">CHINA 2027</div>
-  <span class="vtag">v0.15</span>
+  <span class="vtag">v0.17</span>
 </header>
 
 <main>
@@ -272,6 +287,25 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
       <div class="cc">🌇 Shanghái</div>
     </div>
   </div>
+
+  <!-- DIAGRAMA DE RUTA -->
+  <div class="glass" style="padding:1rem 1rem .8rem;">
+    <div style="font-size:.7rem;font-weight:600;letter-spacing:.08em;color:var(--mut);margin-bottom:.9rem;text-transform:uppercase;">Itinerario · 9–25 abr 2027</div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-dot" style="border-color:#BA7517;background:rgba(186,117,23,.12);">✈</div></div><div class="rdr-info"><div class="rdr-name" style="color:#BA7517">Madrid · Salida</div><div class="rdr-sub">mié 09 abr · 11:05h · Sichuan 3U3804</div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:repeating-linear-gradient(to bottom,#BA7517 0,#BA7517 5px,transparent 5px,transparent 10px)"></div><div class="rdr-clabel" style="color:#BA7517">✈ ~11h · escala Chengdu · 2h 30min → Pekín</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-city-dot" style="background:#E6F1FB;border-color:#185FA5;"><div class="rdr-inner" style="background:#185FA5;"></div></div></div><div class="rdr-info"><div class="rdr-name">🏯 Pekín</div><div class="rdr-sub">3 noches · D2-4 · 10-12 abr</div><div class="rdr-sub"><a href="https://www.google.com/maps/search/?api=1&query=Orange+Hotel+Beijing+Tiananmen" target="_blank" class="hotel-link">📍 SSAW Garden / Orange Hotel Tiananmen</a></div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:repeating-linear-gradient(to bottom,#378ADD 0,#378ADD 6px,transparent 6px,transparent 11px)"></div><div class="rdr-clabel" style="color:#378ADD">✈ ~3h vuelo doméstico</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-city-dot" style="background:#E1F5EE;border-color:#0F6E56;"><div class="rdr-inner" style="background:#0F6E56;"></div></div></div><div class="rdr-info"><div class="rdr-name">🐼 Chengdu</div><div class="rdr-sub">3 noches · D5-7 · 13-15 abr</div><div class="rdr-sub"><a href="https://www.google.com/maps/search/?api=1&query=Grand+ParcVue+Hotel+Residence+Chengdu" target="_blank" class="hotel-link">📍 Grand ParcVue Hotel Residence</a></div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:#1D9E75;width:3px;min-height:32px;flex-shrink:0;margin:0 auto;"></div><div class="rdr-clabel" style="color:#1D9E75">🚄 1h 15min · tren bala</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-city-dot" style="background:#FAECE7;border-color:#993C1D;"><div class="rdr-inner" style="background:#993C1D;"></div></div></div><div class="rdr-info"><div class="rdr-name">🌆 Chongqing</div><div class="rdr-sub">2 noches · D8-9 · 16-17 abr</div><div class="rdr-sub"><a href="https://www.google.com/maps/search/?api=1&query=Glenvie+ITC+Plaza+Chongqing" target="_blank" class="hotel-link">📍 Glenvie ITC Plaza</a></div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:#1D9E75;width:3px;min-height:32px;flex-shrink:0;margin:0 auto;"></div><div class="rdr-clabel" style="color:#1D9E75">🚄 ~5h · tren bala</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-city-dot" style="background:#EAF3DE;border-color:#3B6D11;"><div class="rdr-inner" style="background:#3B6D11;"></div></div></div><div class="rdr-info"><div class="rdr-name">🏔️ Zhangjiajie</div><div class="rdr-sub">2 noches · D10-11 · 18-19 abr</div><div class="rdr-sub"><a href="https://www.google.com/maps/search/?api=1&query=Hilton+Garden+Inn+Tianmen+Mountain+Zhangjiajie" target="_blank" class="hotel-link">📍 Hilton Garden Inn Tianmen Mountain</a></div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:repeating-linear-gradient(to bottom,#378ADD 0,#378ADD 6px,transparent 6px,transparent 11px)"></div><div class="rdr-clabel" style="color:#378ADD">✈ ~2h vuelo doméstico</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-city-dot" style="background:#EEEDFE;border-color:#534AB7;"><div class="rdr-inner" style="background:#534AB7;"></div></div></div><div class="rdr-info"><div class="rdr-name">🌇 Shanghái</div><div class="rdr-sub">4 noches · D12-15 · 20-23 abr</div><div class="rdr-sub"><a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a></div></div></div>
+    <div class="rdr-conn"><div class="rdr-line" style="background:repeating-linear-gradient(to bottom,#BA7517 0,#BA7517 5px,transparent 5px,transparent 10px)"></div><div class="rdr-clabel" style="color:#BA7517">✈ ~3h escala Chengdu · ~11h → Madrid</div></div>
+    <div class="rdr-row"><div class="rdr-dot-col"><div class="rdr-dot" style="border-color:#BA7517;background:rgba(186,117,23,.12);">🏠</div></div><div class="rdr-info"><div class="rdr-name" style="color:#BA7517">Madrid · Llegada</div><div class="rdr-sub">dom 25 abr · 07:40h · Sichuan 3U3803</div></div></div>
+  </div>
+
   <div class="glass">
     <div class="sec-lbl">👥 Viajeros</div>
     <div class="dch-desc" style="font-size:.9rem">Grupo de <strong>7 viajeros</strong> confirmados · Asiahop Exp. 214#26</div>
@@ -289,11 +323,11 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   <div class="glass">
     <div class="sec-lbl">🏨 Hoteles</div>
     <div class="dch-desc" style="font-size:.82rem;line-height:1.8">
-      🏯 Pekín · SSAW Garden / Orange Hotel Tiananmen<br>
-      🐼 Chengdu · Grand ParcVue Hotel Residence<br>
-      🌆 Chongqing · Glenvie ITC Plaza<br>
+      🏯 Pekín · <a href="https://www.google.com/maps/search/?api=1&query=Orange+Hotel+Beijing+Tiananmen" target="_blank" class="hotel-link">📍 SSAW Garden / Orange Hotel Tiananmen</a><br>
+      🐼 Chengdu · <a href="https://www.google.com/maps/search/?api=1&query=Grand+ParcVue+Hotel+Residence+Chengdu" target="_blank" class="hotel-link">📍 Grand ParcVue Hotel Residence</a><br>
+      🌆 Chongqing · <a href="https://www.google.com/maps/search/?api=1&query=Glenvie+ITC+Plaza+Chongqing" target="_blank" class="hotel-link">📍 Glenvie ITC Plaza</a><br>
       🏔️ Zhangjiajie · Hilton Garden Inn Tianmen Mtn.<br>
-      🌇 Shanghái · Jin Jian Tower
+      🌇 Shanghái · <a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a>
     </div>
   </div>
   <div class="glass">
@@ -353,7 +387,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Mañana libre en Pekín. Vuelo doméstico a Chengdu. Tarde de llegada: paseo por Chunxi Road y Taikoo Li, el centro moderno de Chengdu.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Chunxi Road</div><div class="place-chip">Taikoo Li</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Grand ParcVue Hotel Residence Chengdu</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Grand+ParcVue+Hotel+Residence+Chengdu" target="_blank" class="hotel-link">📍 Grand ParcVue Hotel Residence</a> Chengdu</div></div>
 </div>
 
 <div id="page-dias-d6" class="page">
@@ -363,7 +397,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Día de excursión a Leshan en tren (incluido). El Gran Buda de Leshan es el más grande del mundo tallado en roca. El complejo incluye otros monumentos excavados en la montaña.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Gran Buda de Leshan</div><div class="place-chip">Complejo rupestre de Leshan</div><div class="place-chip">Río Min</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Grand ParcVue Hotel Residence Chengdu</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Grand+ParcVue+Hotel+Residence+Chengdu" target="_blank" class="hotel-link">📍 Grand ParcVue Hotel Residence</a> Chengdu</div></div>
 </div>
 
 <div id="page-dias-d7" class="page">
@@ -373,7 +407,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Visita a la Base de Investigación del Panda Gigante. Por la tarde recorrido por el Templo Wuhou, la Calle Jinli y los famosos callejones Kuanzhai (Ancho y Angosto). Ideal explorar en bici.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Base del Panda Gigante</div><div class="place-chip">Templo Wuhou</div><div class="place-chip">Calle Jinli</div><div class="place-chip">Kuanzhai Alley</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Grand ParcVue Hotel Residence Chengdu</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Grand+ParcVue+Hotel+Residence+Chengdu" target="_blank" class="hotel-link">📍 Grand ParcVue Hotel Residence</a> Chengdu</div></div>
 </div>
 
 <div id="page-dias-d8" class="page">
@@ -383,7 +417,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Tren bala Chengdu-Chongqing (~65 minutos, incluido). Tarde de llegada: paseo por Hongyadong, las icónicas casas colgantes iluminadas a orillas del río Jialing.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Hongyadong</div><div class="place-chip">Río Jialing</div><div class="place-chip">Centro de Chongqing</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Glenvie ITC Plaza Chongqing</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Glenvie+ITC+Plaza+Chongqing" target="_blank" class="hotel-link">📍 Glenvie ITC Plaza</a> Chongqing</div></div>
 </div>
 
 <div id="page-dias-d9" class="page">
@@ -393,7 +427,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">¡Día grande! La agencia ha elegido este sábado para el espectáculo de drones de Chongqing. Visita por los barrios más emblemáticos de la ciudad.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Espectáculo de drones 🚁</div><div class="place-chip">Jiefangbei</div><div class="place-chip">Shibati</div><div class="place-chip">Ciqikou</div><div class="place-chip">Colina de Eling</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Glenvie ITC Plaza Chongqing</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Glenvie+ITC+Plaza+Chongqing" target="_blank" class="hotel-link">📍 Glenvie ITC Plaza</a> Chongqing</div></div>
 </div>
 
 <div id="page-dias-d10" class="page">
@@ -403,7 +437,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Tren bala Chongqing-Zhangjiajie (incluido). Llegada al destino más espectacular del viaje: las montañas que inspiraron la película Avatar.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Estación de Zhangjiajie</div><div class="place-chip">Llegada y orientación</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Hilton Garden Inn Tianmen Mountain</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Hilton+Garden+Inn+Tianmen+Mountain+Zhangjiajie" target="_blank" class="hotel-link">📍 Hilton Garden Inn Tianmen Mountain</a></div></div>
 </div>
 
 <div id="page-dias-d11" class="page">
@@ -413,7 +447,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Día completo con las dos grandes visitas: Montaña Tianmen (entrada A con teleféricos incluida) y Parque Nacional Wulingyuan (entrada con teleféricos incluida). Yuanjiajie, Monte Tianzi y los pilares Avatar.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Montaña Tianmen (A) ⛰️</div><div class="place-chip">Parque Wulingyuan</div><div class="place-chip">Yuanjiajie</div><div class="place-chip">Monte Tianzi</div><div class="place-chip">Puente de Cristal</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Hilton Garden Inn Tianmen Mountain</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Hilton+Garden+Inn+Tianmen+Mountain+Zhangjiajie" target="_blank" class="hotel-link">📍 Hilton Garden Inn Tianmen Mountain</a></div></div>
 </div>
 
 <div id="page-dias-d12" class="page">
@@ -423,7 +457,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Vuelo doméstico Zhangjiajie-Shanghái (incluido). Tarde de llegada: primer paseo por The Bund y la avenida de Nanjing iluminada de noche.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">The Bund (Waitan)</div><div class="place-chip">Nanjing Road</div><div class="place-chip">Skyline de Pudong</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Jin Jian Tower Shanghai</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a> Shanghai</div></div>
 </div>
 
 <div id="page-dias-d13" class="page">
@@ -433,7 +467,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Día de Shanghái clásica. The Bund de día, Jardín Yuyuan, Old Town y el templo Jing'an. Tarde en Xintiandi.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">The Bund (Waitan)</div><div class="place-chip">Jardín Yuyuan</div><div class="place-chip">Old Town</div><div class="place-chip">Templo Jing'an</div><div class="place-chip">Xintiandi</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Jin Jian Tower Shanghai</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a> Shanghai</div></div>
 </div>
 
 <div id="page-dias-d14" class="page">
@@ -443,7 +477,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Mañana en Pudong: Torre Oriental, Shanghai Tower y el moderno skyline desde abajo. Tarde en Tianzifang (barrio creativo) y la Concesión Francesa.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Shanghai Tower</div><div class="place-chip">Torre Oriental</div><div class="place-chip">Tianzifang</div><div class="place-chip">Concesión Francesa</div><div class="place-chip">Fuxing Road</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Jin Jian Tower Shanghai</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a> Shanghai</div></div>
 </div>
 
 <div id="page-dias-d15" class="page">
@@ -453,7 +487,7 @@ main{max-width:860px;margin:0 auto;padding:1.4rem 1rem;
   </div>
   <div class="glass"><div class="dch-desc">Último día completo en Shanghái. Opción de visitar Disney Shanghai, el Museo de Arte (Power Station of Art) o simplemente explorar barrios con calma.</div></div>
   <div class="glass"><div class="sec-lbl">📍 Lugares del día</div><div class="place-grid"><div class="place-chip">Disney Shanghai (opcional)</div><div class="place-chip">Power Station of Art</div><div class="place-chip">Barrio de Jing'an</div><div class="place-chip">Mercado de Dongtai</div></div></div>
-  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem">Jin Jian Tower Shanghai</div></div>
+  <div class="glass"><div class="sec-lbl">🏨 Alojamiento</div><div class="dch-desc" style="font-size:.85rem"><a href="https://www.google.com/maps/search/?api=1&query=Jin+Jian+Tower+Shanghai" target="_blank" class="hotel-link">📍 Jin Jian Tower</a> Shanghai</div></div>
 </div>
 
 <div id="page-dias-d16" class="page">
